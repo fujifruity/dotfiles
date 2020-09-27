@@ -1,0 +1,193 @@
+
+# Original: /etc/sway/config
+
+#
+### Variables
+#
+# Logo key. Mod1=Alt, Mod4=Win.
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term /usr/bin/alacritty
+set $menu "dmenu_run -fn 'Source Code Pro 11' -sb '#333333' -nf '#aaaaff' -sf '#aaffaa' "
+set $status ~/.cargo/bin/simplestatus
+
+#
+### Key bindings
+#
+bindsym $mod+f        fullscreen toggle
+bindsym $mod+minus      splitv ; exec $term -e tmux
+bindsym $mod+backslash  splith ; exec $term -e tmux
+bindsym $mod+Return     exec    $term -e fish
+bindsym $mod+Shift+q    kill
+bindsym $mod+Shift+r    exec killall $status ; restart
+bindsym $mod+Shift+c    exec killall $status ; reload
+bindsym $mod+Shift+e    exit
+bindsym $mod+F2         exec $menu
+bindsym $mod+F5         exec fish -c "backlight down"
+bindsym $mod+F6         exec fish -c "backlight up"
+set $output1 eDP-1
+set $output2 HDMI-1
+set $size 1360x768
+# bindsym $mod+F8         exec    xrandr --output $output2 --mode $size --right-of $output1
+bindsym $mod+F8         exec    xrandr --output $output2 --mode $size --same-as $output1
+bindsym $mod+Shift+F8   exec    xrandr --output $output2 --off
+bindsym $mod+F7         exec fish -c "auto_backlight"
+bindsym $mod+F9         exec fish -c "pul toggle"
+bindsym $mod+F10        exec fish -c "vol mute"
+bindsym $mod+F11        exec fish -c "vol down"
+bindsym $mod+F12        exec fish -c "vol up"
+bindsym Print           exec fish -c "capture shot"
+bindsym Shift+Print     exec fish -c "capture shot --selection"
+bindsym Alt+Print       exec fish -c "capture record"
+bindsym Alt+Shift+Print exec fish -c "capture record --selection"
+# bindsym Menu            exec notify-send "Menu"
+
+# Move focus
+bindsym $mod+$left  focus left
+bindsym $mod+$down  focus down
+bindsym $mod+$up    focus up
+bindsym $mod+$right focus right
+# Move window
+bindsym $mod+Shift+$left  move left
+bindsym $mod+Shift+$down  move down
+bindsym $mod+Shift+$up    move up
+bindsym $mod+Shift+$right move right
+# Switch workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+# bindsym $mod+Tab       workspace next_on_output
+# bindsym $mod+Shift+Tab workspace prev_on_output
+bindsym $mod+Shift+1    move container to workspace number 1 ; workspace number 1
+bindsym $mod+Shift+2    move container to workspace number 2 ; workspace number 2
+bindsym $mod+Shift+3    move container to workspace number 3 ; workspace number 3
+bindsym $mod+Shift+4    move container to workspace number 4 ; workspace number 4
+bindsym $mod+Shift+5    move container to workspace number 5 ; workspace number 5
+bindsym $mod+Shift+6    move container to workspace number 6 ; workspace number 6
+bindsym $mod+Shift+7    move container to workspace number 7 ; workspace number 7
+bindsym $mod+Shift+8    move container to workspace number 8 ; workspace number 8
+bindsym $mod+Shift+9    move container to workspace number 9 ; workspace number 9
+bindsym $mod+Shift+0    move container to workspace number 10 ; workspac numbere 10
+# bindsym $mod+braceright move container to workspace next_on_output ; workspace next_on_output
+# bindsym $mod+braceleft  move container to workspace prev_on_output ; workspace prev_on_output
+
+## switching to the same workspace does back and forth
+workspace_auto_back_and_forth yes
+
+## Layout
+bindsym $mod+t layout toggle tabbed split  
+bindsym $mod+s layout toggle split
+
+## Floating window
+# floating_modifier $mod normal # <-- for sway
+floating_modifier $mod 
+## Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+## Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+## move focus to the parent container
+bindsym $mod+a focus parent
+
+#
+## App launcher
+#
+bindsym $mod+o mode "Launcher" ; exec fish -c launcher_guide
+set $mozc       /usr/lib/mozc/mozc_tool --mode=config_dialog
+mode "Launcher" {
+    bindsym a       exec alacritty -e fish          ; mode "default"
+    bindsym c       exec code                       ; mode "default"
+    bindsym f       exec firefox                    ; mode "default"
+    bindsym m       exec $mozc                      ; mode "default"
+    bindsym p       exec pavucontrol                ; mode "default"
+    bindsym t       exec thunar                     ; mode "default"
+    bindsym b       exec "fish -c toggle_btdongle"  ; mode "default"
+    bindsym k       exec "fish -c set_keybind"      ; mode "default"
+    bindsym $mod+o  exec "fish -c launcher_guide"
+    bindsym Escape  mode "default"
+    bindsym Return  mode "default"
+}
+
+#
+# Passthrough mode
+#
+bindsym $mod+z mode "Passthrough" ; fullscreen enable
+mode "Passthrough" {
+    bindsym $mod+z mode "default" ; fullscreen disable 
+}
+
+#
+# Resizing containers:
+#
+bindsym $mod+r mode "Resize"
+mode "Resize" {
+    bindsym $left  resize shrink width 10px
+    bindsym $down  resize grow height 10px
+    bindsym $up    resize shrink height 10px
+    bindsym $right resize grow width 10px
+    ## return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+#
+## Set colors
+#
+set $white  #ffffff
+set $gray3  #999999
+set $gray2  #666666
+set $gray1  #333333
+set $gray0  #222222
+set $red    #0288d1
+##class                 border backgr text   indicator child_border
+client.focused          $gray1 $gray1 $white $red      $gray3
+client.focused_inactive $gray1 $gray1 $white $red      $gray1
+client.unfocused        $gray0 $gray0 $gray2 $red      $gray0
+
+#
+## Status bar
+#
+exec killall $status
+bar {
+    position top
+    font pango:Source Code Pro semibold 11
+    ## When the status_command prints a new line to stdout, swaybar updates.
+    status_command $status run
+    # status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
+    colors {
+        statusline $white
+        background $gray0
+        #<colorclass>      <border>    <bg>    <text>
+        focused_workspace  $gray1      $gray1  $white
+        inactive_workspace $gray0      $gray0  $gray2
+    }
+}
+
+#
+# Other
+#
+# assign [class="jetbrains-studio"] 2
+font pango:Source Han Sans JP semibold 11
+default_border pixel 1
+hide_edge_borders smart
+focus_follows_mouse yes
+
+exec fish -c set_keybind 
+exec fish -c random_wallpaper 
+exec fish -c "is_laptop ; and auto_backlight"
+exec xrandr --auto
+exec xset r rate 190 20
+exec xautolock -time 7 -notify 7 -notifier "$status send zzz" -locker "systemctl suspend" -detectsleep -corners 000- 
+exec ibus-daemon --daemonize --replace
+exec dunst 
+exec systemctl --user start redshift
+
