@@ -41,6 +41,9 @@ let g:ale_linters = {}
 "" Basic Setup
 "*****************************************************************************"
 
+"" shell
+set shell=/usr/bin/fish
+
 "" Swapfile
 set noswapfile
 
@@ -57,7 +60,7 @@ set shiftwidth=4
 set expandtab
 
 "" Map leader to
-let mapleader = "\<Space>"
+" let mapleader = "\<Space>"
 
 "" Enable hidden buffers
 set hidden
@@ -96,9 +99,6 @@ endif
 "" Line number
 set number
 
-"" Disable the blinking cursor.
-set gcr=a:blinkon0
-
 "" Minimal number of screen lines to keep above and below the cursor.
 set scrolloff=3
 
@@ -113,36 +113,13 @@ nmap N Nzzzv
 "*****************************************************************************
 "" Commands
 "*****************************************************************************
+
 " remove trailing whitespaces
 command! FixWhitespace :%s/\s\+$//e
 
 "*****************************************************************************
-"" Autocmd Rules
-"*****************************************************************************
-
-" "" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
-" augroup vimrc-sync-fromstart
-"   autocmd!
-"   autocmd BufEnter * :syntax sync maxlines=200
-" augroup END
-
-"" Remember cursor position
-augroup vimrc-remember-cursor-position
-  autocmd!
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-augroup END
-
-set autoread
-
-"*****************************************************************************
 "" Mappings
 "*****************************************************************************
-
-" grep.vim
-map <silent> <leader>f :Rgrep<CR>
-let Grep_Default_Options = '-IR'
-let Grep_Skip_Files = '*.log *.db'
-let Grep_Skip_Dirs = '.git node_modules'
 
 "" Align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -161,9 +138,6 @@ nmap <Leader>gd  :Gvdiff<CR>
 nmap <Leader>gr  :Gremove<CR>
 "" Open current line on GitHub
 nmap <Leader>o :.Gbrowse<CR>
-
-"" Copy to clipboard
-"xmap y y:call system("wl-copy", @")<cr>
 
 "" Highlight
 nmap <Esc><Esc> :noh<CR>
@@ -186,29 +160,18 @@ nmap <leader>. :cd %:h<CR>
 nmap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 "" Search for visually selected text
-vnoremap // y/<C-R>0<CR>
+vmap // y/<C-R>0<CR>
 
 "" Buffer
 nmap <leader>b\  :rightbelow vnew<CR>
 nmap <leader>b-  :belowright new<CR>
-nmap <leader>bp  :bp<CR>
-nmap <leader>bn  :bn<CR>
-nmap <leader>bd  :bd<CR>
-nmap <leader>ww  :w<CR>
-nmap <leader>wq  :wq<CR>
 "" go to the MRU buffer
 nmap <leader><tab>  :e #<cr>
 
 "" Window
 nmap <leader>w\ :<C-u>vsplit<CR><c-w>l
 nmap <leader>w- :<C-u>split<CR><c-w>j
-nmap <Leader>wh <c-w>h
-nmap <Leader>wj <c-w>j
-nmap <Leader>wk <c-w>k
-nmap <Leader>wl <c-w>l
-nmap <leader>q :q<CR>
-nmap <leader>! :q!<CR>
-
+"
 "" Tabpage
 nmap <leader>tt :tabnew<cr>
 nmap <leader>th :tabprevious<cr>
@@ -223,7 +186,7 @@ nmap <Leader>m :marks<CR>
 nmap <Leader>rr :reg<CR>
 
 "" Terminal
-nmap <Leader>t :terminal<CR>
+nmap <Leader><F12> :terminal<CR>
 
 "" FZF
 " Files [PATH] 	Files (similar to :FZF)
