@@ -6,36 +6,34 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #SingleInstance [Force]
 
-; capslock -> special modifier
-SetCapsLockState, AlwaysOff
-#If GetKeyState("CapsLock", "P")
-h::Left 
-j::Down
-k::Up
-l::Right
-i::Backspace
-o::Delete
-9::PgUp
-0::PgDn
-[::Home
-]::End
-n::Space
-m::Enter
-#If
+; F13 -> special modifier
+F13 & u::Send {Blind}{Home}
+F13 & i::Send {Blind}{PgUp}
+F13 & o::Send {Blind}{PgDn}
+F13 & p::Send {Blind}{End}
+F13 & h::Send {Blind}{Left}
+F13 & j::Send {Blind}{Down}
+F13 & k::Send {Blind}{Up}
+F13 & l::Send {Blind}{Right}
+F13 & n::Send {Blind}{Space}
+F13 & m::Send {Blind}{Enter}
+F13 & ,::Send {Blind}{Backspace}
+F13 & .::Send {Blind}{Delete}
+F13 & /::Send {Blind}{AppsKey}
 
-; single capslock ->  escape
-*CapsLock::
-KeyWait, CapsLock
-IF A_ThisHotkey = *CapsLock
+; single F13 ->  escape
+*F13::
+KeyWait, F13
+IF A_ThisHotkey = *F13
 	Send, {Escape}
     Return
 
 ; L&R shift -> space
 $LShift::
-    Send {Space}
+    Send, {Space}
     Return
 $RShift::
-    Send {Space}
+    Send, {Space}
     Return
 
 ; space -> shift

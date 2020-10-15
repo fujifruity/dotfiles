@@ -1,23 +1,23 @@
 
 // Memo:
-//                Menu -> Super_R
-//           Caps_Lock -> Mode_switch
-//              Escape -> Caps_Lock
-//               space -> Shift_L
-//             Shift_R -> space
-//             Shift_L -> space
-//            Mod5 + h -> Left
-//            Mod5 + l -> Right
-//            Mod5 + k -> Up
-//            Mod5 + j -> Down
-//            Mod5 + n -> space
-//            Mod5 + m -> Return
-//            Mod5 + i -> BackSpace
-//            Mod5 + o -> Delete
-//            Mod5 + 9 -> Prior
-//            Mod5 + 0 -> Next
-//  Mod5 + bracketleft -> Home
-// Mod5 + bracketright -> End
+// Menu -> Super_R
+// Caps_Lock -> Mode_switch
+// Escape -> Caps_Lock
+// space -> Shift_L
+// Shift_R -> space
+// Shift_L -> space
+// Mod5 + h -> Left
+// Mod5 + j -> Down
+// Mod5 + k -> Up
+// Mod5 + l -> Right
+// Mod5 + n -> space
+// Mod5 + m -> Return
+// Mod5 + comma -> BackSpace
+// Mod5 + period -> Delete
+// Mod5 + u -> Home
+// Mod5 + i -> Prior
+// Mod5 + o -> Next
+// Mod5 + p -> End
 //
 // keysym Escape is bound to unused keycode 249 so xcape recognize Escape
 

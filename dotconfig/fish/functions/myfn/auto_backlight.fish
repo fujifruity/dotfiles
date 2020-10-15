@@ -1,6 +1,6 @@
 function auto_backlight
     # brightness ∝ factor  
-    set factor 55
+    set factor 60
 
     set intel_bl /sys/class/backlight/intel_backlight
     set max (cat $intel_bl'/max_brightness')
