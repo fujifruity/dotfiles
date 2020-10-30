@@ -1,0 +1,148 @@
+{
+	// Place your snippets for rust here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	// JSON string escaper
+	// https://www.freeformatter.com/json-escape.html
+	"stdin": {
+		"prefix": "stdin",
+		"body": [
+			"use std::io::BufRead;\r\nlet stdin = std::io::stdin();\r\nlet lines = stdin.lock().lines().map(|l| l.unwrap());\r\n\r\nfor line in lines {\r\n    println!(\"input={}\", line);\r\n}"
+		],
+	},
+	"sleep with uses": {
+		"prefix": "sleep",
+		"body": [
+			"use std::thread;",
+			"use std::time::Duration;",
+			"thread::sleep(Duration::from_secs(${1:secs: u64}));",
+		],
+	},
+	"sleep": {
+		"prefix": "sleep",
+		"body": [
+			"thread::sleep(Duration::from_secs(${1:secs: u64}));",
+		],
+	},
+	"test(quiz)": {
+		"prefix": "test",
+		"body": [
+			"#[test]\r\nfn ${1:name}() {\r\n    let input = \"\\\r\n\".as_bytes();\r\n    let predicate = \"\\\r\n\";\r\n    let mut output = Vec::new();\r\n    run(input, &mut output);\r\n    let output = String::from_utf8(output).unwrap();\r\n\r\n    assert_eq!(output, predicate);\r\n}"
+		],
+	},
+	"main and test(quiz)": {
+		"prefix": "quiz",
+		"body": [
+			"#[allow(unused_imports)]\r\nuse itertools::Itertools;\r\nuse std::io::{self, BufRead};\r\n\r\nfn main() {\r\n    let stdin = io::stdin();\r\n    let lines = stdin.lock().lines().map(|l| l.unwrap());\r\n    for line in run(lines).unwrap() {\r\n        println!(\"{}\", line)\r\n    }\r\n}\r\n\r\nfn run(lines: impl Iterator<Item = String>) -> Option<impl Iterator<Item = String>> {\r\n    let tail = lines.skip(1);\r\n    Some(tail)\r\n}\r\n\r\n#[test]\r\nfn name() {\r\n    let input = \"\\r\n                 \";\r\n    let predicate = \"\\r\n                     \";\r\n    let output = run(input.lines()).unwrap();\r\n\r\n    itertools::assert_equal(output, predicate.lines());\r\n}"
+		],
+	},
+	"thread builder": {
+		"prefix": "thread::Builder",
+		"body": [
+			"thread::Builder::new().name(\"$1\".to_owned()).spawn(move || {",
+			"    (|| {",
+			"    })().unwrap();",
+			"});$0"
+		],
+	},
+	"Result<_, _>": {
+		"prefix": "Result<_, _>",
+		"body": [
+			"Result<$1, $2>"
+		],
+	},
+	"Option<_>": {
+		"prefix": "Option<_>",
+		"body": [
+			"Option<$1>"
+		],
+	},
+	"NoneError for failure": {
+		"prefix": "NoneError",
+		"body": [
+			"extern crate failure_derive;\r\nuse std::fmt;\r\n\r\n#[derive(Fail, Debug)]\r\nstruct NoneError;\r\n\r\nimpl fmt::Display for NoneError {\r\n    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {\r\n        write!(f, \"expected: Some(_), found: None\")\r\n    }\r\n}\r\n"
+		],
+	},
+	"hashmap": {
+		"prefix": "hashmap",
+		"body": [
+			"use std::collections::HashMap;",
+			"let mut $1 = HashMap::new();",
+		],
+	},
+	"impl From": {
+		"prefix": "impl From",
+		"body": [
+			"impl From<$1> for $2 {",
+			"    fn from($3: $1) -> Self {",
+			"        $4",
+			"    }",
+			"}$0",
+		],
+	},
+	"Point": {
+		"prefix": "Point",
+		"body": [
+			"#[derive(Debug, Clone, Copy, PartialEq)]\r\nstruct Point {\r\n    x: $1,\r\n    y: $1,\r\n}\r\nimpl Point {\r\n    fn new(x: $1, y: $1) -> Self {\r\n        Point { x, y }\r\n    }\r\n}\r\nimpl Point {\r\n    fn sqdist(self, p: Self) -> $1 {\r\n        let (dx, dy) = (self.x - p.x, self.y - p.y);\r\n        dx * dx + dy * dy\r\n    }\r\n}\r\nuse std::ops::Add;\r\nimpl Add for Point {\r\n    type Output = Point;\r\n\r\n    fn add(self, other: Self) -> Self {\r\n        Point::new(self.x + other.x, self.y + other.y)\r\n    }\r\n}\r\nuse std::ops::Sub;\r\nimpl Sub for Point {\r\n    type Output = Point;\r\n\r\n    fn sub(self, other: Self) -> Self {\r\n        Point::new(self.x - other.x, self.y - other.y)\r\n    }\r\n}"
+		],
+	},
+	"Rectangle": {
+		"prefix": "Rectangle",
+		"body": [
+			"#[derive(Debug)]\r\nstruct Rectangle<T> {\r\n    left_top: Point<T>,\r\n    right_bottom: Point<T>,\r\n}\r\nimpl<T> Rectangle<T> {\r\n    fn new(left_top: Point<T>, right_bottom: Point<T>) -> Rectangle<T> {\r\n        Rectangle {\r\n            left_top,\r\n            right_bottom,\r\n        }\r\n    }\r\n    fn contains(&self, p: Point<T>) -> bool\r\n    where\r\n        T: PartialOrd,\r\n    {\r\n        self.left_top.x <= p.x\r\n            && self.left_top.y <= p.y\r\n            && self.right_bottom.x >= p.x\r\n            && self.right_bottom.y >= p.y\r\n    }\r\n}"
+		],
+	},
+	"Iterator<Item=_>": {
+		"prefix": "Iterator<Item=_>",
+		"body": [
+			"Iterator<Item=$1>"
+		],
+	},
+	"nums(quiz)": {
+		"prefix": "nums",
+		"body": [
+			"let nums: Vec<$1> = $2.split(\" \").map(|s| s.parse().unwrap()).collect();"
+		],
+	},
+	"ok_or(err_msg": {
+		"prefix": "ok_or(err_msg",
+		"body": [
+			"ok_or(err_msg(\"$1\"))"
+		],
+	},
+	// Algorithms
+	"minimax with alpha-beta prunning": {
+		"prefix": "minimax",
+		"body": [
+			"fn minimax(\r\n    is_maximizer: bool,\r\n    leaves: &[isize],\r\n    n_branch: usize,\r\n    parent_max: isize,\r\n    parent_min: isize,\r\n) -> isize {\r\n    if leaves.len() == 1 {\r\n        return leaves[0];\r\n    }\r\n\r\n    let branch_size = leaves.len() \/ n_branch;\r\n    let mut chunks = leaves.chunks(branch_size);\r\n    if is_maximizer {\r\n        chunks.try_fold(parent_max, |max, chunk| {\r\n            let child = minimax(false, chunk, n_branch, max, parent_min);\r\n            if child >= parent_min {\r\n                Err(child)\r\n            } else {\r\n                Ok(child.max(max))\r\n            }\r\n        })\r\n    } else {\r\n        chunks.try_fold(parent_min, |min, chunk| {\r\n            let child = minimax(true, chunk, n_branch, parent_max, min);\r\n            if parent_max >= child {\r\n                Err(child)\r\n            } else {\r\n                Ok(child.min(min))\r\n            }\r\n        })\r\n    }\r\n    .unwrap_or_else(|e| e)\r\n}"
+		],
+	},
+	"dfs(bfs)": {
+		"prefix": "dfs(bfs)",
+		"body": [
+			"use std::collections::HashMap;\r\nuse std::collections::HashSet;\r\nfn dfs(graph: HashMap<char, HashSet<char>>, start: char) -> HashSet<char> {\r\n    let mut to_visit = vec![];\r\n    let mut visited = HashSet::new();\r\n    to_visit.push(start);\r\n    while !to_visit.is_empty() {\r\n        \/\/ let node = to_visit.remove(0);\r\n        let node = to_visit.pop().unwrap();\r\n        visited.insert(node);\r\n        let neighbors = graph[&node].difference(&visited);\r\n        to_visit.extend(neighbors);\r\n    }\r\n    visited\r\n}"
+		],
+	},
+	"dfs(bfs)_path": {
+		"prefix": "dfs(bfs)_path",
+		"body": [
+			"use std::collections::HashMap;\r\nuse std::collections::HashSet;\r\nfn dfs_paths(graph: HashMap<char, HashSet<char>>, start: char, goal: char) -> Vec<Vec<char>> {\r\n    let mut half_ways = vec![vec![start]];\r\n    let mut paths = vec![];\r\n    while !half_ways.is_empty() {\r\n        let path = half_ways.pop().unwrap();\r\n        // let path = half_ways.remove(0);\r\n        let nexts = graph[path.last().unwrap()]\r\n            .iter()\r\n            .filter(|&next| !path.contains(next));\r\n        for next in nexts {\r\n            let mut path = path.clone();\r\n            path.push(*next);\r\n            if *next == goal {\r\n                paths.push(path);\r\n            } else {\r\n                half_ways.push(path);\r\n            }\r\n        }\r\n    }\r\n    paths\r\n}"
+		],
+	},
+	"shortest_path": {
+		"prefix": "shortest_path",
+		"body": [
+			"use std::collections::HashSet;\r\nuse std::collections::VecDeque;\r\nuse std::hash::Hash;\r\nfn shortest_path<T, F, G, I>(start: T, is_goal: F, neighbors: G) -> Option<Vec<T>>\r\nwhere\r\n    T: Clone + PartialEq + Eq + Hash,\r\n    F: Fn(&T) -> bool,\r\n    G: Fn(&T) -> I,\r\n    I: Iterator<Item = T>,\r\n{\r\n    let mut half_ways = VecDeque::new();\r\n    half_ways.push_back(vec![start]);\r\n    let mut visited = HashSet::new();\r\n    while let Some(path) = half_ways.pop_front() {\r\n        for next in neighbors(path.last()?) {\r\n            if !visited.contains(&next) {\r\n                visited.insert(next.clone());\r\n                let mut path = path.clone();\r\n                path.push(next.clone());\r\n                if is_goal(&next) {\r\n                    return Some(path);\r\n                }\r\n                half_ways.push_back(path);\r\n            }\r\n\r\n        }\r\n    }\r\n    None\r\n}"
+		],
+	},
+}

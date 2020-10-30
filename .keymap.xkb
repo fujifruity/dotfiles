@@ -14,7 +14,7 @@
 // Mod5 + j -> Down
 // Mod5 + k -> Up
 // Mod5 + l -> Right
-// Mod5 + n -> space
+// Mod5 + ; -> space
 // Mod5 + m -> Return
 // Mod5 + comma -> BackSpace
 // Mod5 + period -> Delete
@@ -1324,7 +1324,11 @@ xkb_symbols "pc+us+inet(evdev)" {
         symbols[Group1]= [               l,               L,               Right],
         actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<RGHT>, clearmods=Mod5) ]
     };
-    key <AC10> {         [       semicolon,           colon ] };
+    key <AC10> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [       semicolon,           colon,               space],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<LFSH>, clearmods=Mod5) ]
+    };
     key <AC11> {         [      apostrophe,        quotedbl ] };
     key <TLDE> {         [           grave,      asciitilde ] };
     key <LFSH> {         [           space ] };
@@ -1350,9 +1354,8 @@ xkb_symbols "pc+us+inet(evdev)" {
         symbols[Group1]= [               b,               B ]
     };
     key <AB06> {
-        type= "CUST_CAPSLOCK",
-        symbols[Group1]= [               n,               N,               space],
-        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<LFSH>, clearmods=Mod5) ]
+        type= "ALPHABETIC",
+        symbols[Group1]= [               n,               N ]
     };
     key <AB07> {
         type= "CUST_CAPSLOCK",

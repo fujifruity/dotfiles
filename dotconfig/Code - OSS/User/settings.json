@@ -1,0 +1,59 @@
+{
+  "vim.easymotion": true,
+  "vim.sneak": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [ "j", "j" ],
+      "after": [ "<Esc>" ]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [ "p" ],
+      "after": [ "p", "g", "v", "y" ]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { // ESC to no highlight
+      "before": [ "<Esc>" ],
+      "commands": [ ":nohl" ]
+    },
+    {
+      "before": [ "u" ],
+      "commands": [ "undo" ]
+    },
+    {
+      "before": [ "<C-r>" ],
+      "commands": [ "redo" ]
+    }
+  ],
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": true
+  },
+  "vim.easymotionMarkerFontSize": "17",
+  "vim.easymotionMarkerFontFamily": "Source Code Pro",
+  "vim.easymotionMarkerFontWeight": "bold",
+  "vim.easymotionMarkerWidthPerChar": 11,
+  "vim.easymotionMarkerBackgroundColor": "RoyalBlue",
+
+  "keyboard.dispatch": "keyCode",
+  "editor.minimap.enabled": false,
+  "editor.fontFamily": "'source code pro', 'font awesome 5 free'",
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.formatOnSave": true,
+  "diffEditor.renderSideBySide": false,
+  "breadcrumbs.enabled": false,
+
+  "search.usePCRE2": true,
+  "terminal.integrated.shell.linux": "/bin/fish",
+  "terminal.integrated.rendererType": "dom",
+  "terminal.integrated.shell.windows": "bash",
+  "workbench.activityBar.visible": false,
+  "workbench.colorTheme": "Default Light+",
+  "window.zoomLevel": 0,
+  "window.menuBarVisibility": "default",
+}

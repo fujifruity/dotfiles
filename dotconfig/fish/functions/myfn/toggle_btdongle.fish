@@ -1,6 +1,6 @@
 function toggle_btdongle
 
-    set btdongle 1C:53:34:BB:8F:76
+    set btdongle EC:9A:4F:7F:D8:35
 
     if bluetoothctl info $btdongle | grep "Connected: yes" > /dev/null
         # if connected:
