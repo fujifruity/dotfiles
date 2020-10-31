@@ -13,10 +13,10 @@ fzf_key_bindings
 
 ## Notify if finished command took time
 function _notify_command_return --on-event fish_prompt
-    if test $CMD_DURATION && pgrep -l simplestatus > /dev/null
+    if test $CMD_DURATION && pgrep -l dunst > /dev/null
         if test $CMD_DURATION -gt (math "1000 * 9")
             set sec (math -s0 "$CMD_DURATION / 1000")
-            simplestatus send "$history[1] / time="(format_seconds $sec)
+            notify-send "$history[1] / time="(format_seconds $sec)
         end
     end
 end

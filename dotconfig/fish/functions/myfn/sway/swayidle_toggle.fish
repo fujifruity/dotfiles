@@ -1,8 +1,8 @@
 function swayidle_toggle
     if killall swayidle ^/dev/null
-        simplestatus send kill swayidle
+        notify-send kill swayidle
     else
         swayidle_compatible
-        simplestatus send run swayidle
+        notify-send run swayidle
     end
 end

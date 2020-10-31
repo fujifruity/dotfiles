@@ -5,7 +5,7 @@ function capture --description 'Takes screen (shot|record). `capture record` tog
     set dir_date /tmp/(date +'%Y%m%d_%H%M%S')
 
     if test $argv[1] = 'shot'
-        function show_msg ; simplestatus send captured ; end
+        function show_msg ; notify-send captured ; end
         if set -lq _flag_s
             # grim -g (slurp) $dir_date'.png'
             scrot --select $dir_date'.png'
@@ -17,9 +17,9 @@ function capture --description 'Takes screen (shot|record). `capture record` tog
         end
     else if test $argv[1] = 'record' ; and type -q wf-recorder
         if killall wf-recorder ^/dev/null
-            simplestatus send 'stop recording'
+            notify-send 'stop recording'
         else
-            function show_msg ; simplestatus send start recording ; end
+            function show_msg ; notify-send start recording ; end
             if set -lq _flag_s
                 wf-recorder -g (slurp) -f $dir_date'.mp4' &
                 show_msg

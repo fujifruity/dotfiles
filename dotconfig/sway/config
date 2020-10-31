@@ -46,7 +46,7 @@ bindsym $mod+minus     splitv ; exec $term
 bindsym $mod+backslash splith ; exec $term
 bindsym $mod+Return    exec    $term
 bindsym $mod+Shift+q   kill
-bindsym $mod+Shift+c   exec killall simplestatus ; reload
+bindsym $mod+Shift+c   reload
 bindsym $mod+Shift+e   exit
 
 # Note: it's recommended that you pass the final command to sway
@@ -190,7 +190,7 @@ mode "Cursor" {
     bindsym      m seat - cursor move  -7   7
     bindsym      j seat - cursor move -10   0
     bindsym      u seat - cursor move  -7  -7
-    bindsym k      seat - cursor press button1 seat ; seat - cursor release button1 ; exec simplestatus send click
+    bindsym k      seat - cursor press button1 seat ; seat - cursor release button1 ; exec notify-send click
 }
 
 #
@@ -212,8 +212,7 @@ bar {
     position top
     font pango:Source Code Pro semibold 10
     ## When the status_command prints a new line to stdout, swaybar updates.
-    status_command simplestatus run
-    # status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
+    status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
     colors {
         statusline $white
         background $gray0

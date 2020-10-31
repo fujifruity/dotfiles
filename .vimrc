@@ -4,16 +4,16 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-abolish' 
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/grep.vim'
 Plug 'Raimondi/delimitMate'
-Plug 'w0rp/ale' " linter
+Plug 'w0rp/ale'             " linter
 Plug 'Yggdroot/indentLine'
 Plug 'sheerun/vim-polyglot' " syntax highlighting
-Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
+Plug 'tpope/vim-rhubarb'    " required by fugitive to :Gbrowse
 Plug '/usr/bin/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'lifepillar/vim-solarized8'
@@ -171,7 +171,7 @@ nmap <leader><tab>  :e #<cr>
 "" Window
 nmap <leader>w\ :<C-u>vsplit<CR><c-w>l
 nmap <leader>w- :<C-u>split<CR><c-w>j
-"
+
 "" Tabpage
 nmap <leader>tt :tabnew<cr>
 nmap <leader>th :tabprevious<cr>
@@ -192,7 +192,7 @@ nmap <Leader><F12> :terminal<CR>
 " Files [PATH] 	Files (similar to :FZF)
 nmap <Leader>ff :Files %:h<cr>
 " History 	    v:oldfiles and open buffers
-nmap <leader>fr :History<CR>
+nmap <leader>fh :History<CR>
 " `History:` 	Command history
 nmap <leader>fc :History:<CR>
 " Buffers 	    Open buffers

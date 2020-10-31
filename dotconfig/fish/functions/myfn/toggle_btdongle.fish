@@ -13,6 +13,6 @@ function toggle_btdongle
         bluetoothctl connect $btdongle
     end
 
-    or simplestatus send "toggle_btdongle failed"
+    or notify-send "toggle_btdongle failed"
 
 end

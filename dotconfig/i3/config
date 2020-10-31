@@ -1,5 +1,5 @@
 
-# Original: /etc/sway/config
+# Original: /etc/i3/config
 
 #
 ### Variables
@@ -12,7 +12,7 @@ set $up k
 set $right l
 set $term /usr/bin/alacritty
 set $menu "dmenu_run -fn 'Source Code Pro 11' -sb '#333333' -nf '#aaaaff' -sf '#aaffaa' "
-set $status ~/.cargo/bin/simplestatus
+set $notify /usr/bin/notify-send
 
 #
 ### Key bindings
@@ -22,12 +22,14 @@ bindsym $mod+minus      splitv ; exec $term -e tmux
 bindsym $mod+backslash  splith ; exec $term -e tmux
 bindsym $mod+Return     exec    $term -e fish
 bindsym $mod+Shift+q    kill
-bindsym $mod+Shift+r    exec killall $status ; restart
-bindsym $mod+Shift+c    exec killall $status ; reload
+bindsym $mod+Shift+r    restart
+bindsym $mod+Shift+c    reload
 bindsym $mod+Shift+e    exit
 bindsym $mod+F2         exec $menu
 bindsym $mod+F5         exec fish -c "backlight down"
 bindsym $mod+F6         exec fish -c "backlight up"
+bindsym $mod+d          exec dunstctl close
+bindsym $mod+Shift+d    exec dunstctl history-pop
 set $output1 eDP-1
 set $output2 HDMI-1
 set $size 1360x768
@@ -156,13 +158,12 @@ client.unfocused        $gray0 $gray0 $gray2 $red      $gray0
 #
 ## Status bar
 #
-exec killall $status
 bar {
     position top
     font pango:Source Code Pro semibold 11
     ## When the status_command prints a new line to stdout, swaybar updates.
-    status_command $status run
-    # status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
+    # status_command $status run
+    status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
     colors {
         statusline $white
         background $gray0
@@ -186,7 +187,7 @@ exec fish -c random_wallpaper
 exec fish -c "is_laptop ; and auto_backlight"
 exec xrandr --auto
 exec xset r rate 190 20
-exec xautolock -time 7 -notify 7 -notifier "$status send zzz" -locker "systemctl suspend" -detectsleep -corners 000- 
+exec xautolock -time 7 -notify 7 -notifier "$notify zzz" -locker "systemctl suspend" -detectsleep -corners 000- 
 exec ibus-daemon --daemonize --replace
 exec dunst 
 exec systemctl --user start redshift
