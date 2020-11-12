@@ -18,6 +18,9 @@
 // Mod5 + m -> Return
 // Mod5 + comma -> BackSpace
 // Mod5 + period -> Delete
+// Mod5 + 1~0 -> F1~F10
+// Mod5 + - -> F11
+// Mod5 + = -> F12
 //
 // keysym Escape is bound to unused keycode 249 so xcape recognize Escape
 
@@ -1216,18 +1219,66 @@ xkb_symbols "pc+us+inet(evdev)" {
     name[group1]="English (US)";
 
     key  <ESC> {         [       Caps_Lock ] };
-    key <AE01> {         [               1,          exclam ] };
-    key <AE02> {         [               2,              at ] };
-    key <AE03> {         [               3,      numbersign ] };
-    key <AE04> {         [               4,          dollar ] };
-    key <AE05> {         [               5,         percent ] };
-    key <AE06> {         [               6,     asciicircum ] };
-    key <AE07> {         [               7,       ampersand ] };
-    key <AE08> {         [               8,        asterisk ] };
-    key <AE09> {         [               9,       parenleft ] };
-    key <AE10> {         [               0,      parenright ] };
-    key <AE11> {         [           minus,      underscore ] };
-    key <AE12> {         [           equal,            plus ] };
+    key <AE01> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [               1,          exclam,	F1 ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<FK01>, clearmods=Mod5) ]
+    };
+    key <AE02> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [               2,              at,	F2 ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<FK02>, clearmods=Mod5) ]
+    };
+    key <AE03> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [               3,      numbersign,	F3 ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<FK03>, clearmods=Mod5) ]
+    };
+    key <AE04> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [               4,          dollar,	F4 ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<FK04>, clearmods=Mod5) ]
+    };
+    key <AE05> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [               5,         percent,	F5 ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<FK05>, clearmods=Mod5) ]
+    };
+    key <AE06> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [               6,     asciicircum,	F6 ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<FK06>, clearmods=Mod5) ]
+    };
+    key <AE07> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [               7,       ampersand,	F7 ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<FK07>, clearmods=Mod5) ]
+    };
+    key <AE08> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [               8,        asterisk,	F8 ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<FK08>, clearmods=Mod5) ]
+    };
+    key <AE09> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [               9,       parenleft,	F9 ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<FK09>, clearmods=Mod5) ]
+    };
+    key <AE10> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [               0,      parenright,	F10 ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<FK10>, clearmods=Mod5) ]
+    };
+    key <AE11> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [           minus,      underscore,	F11 ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<FK11>, clearmods=Mod5) ]
+    };
+    key <AE12> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [           equal,            plus,	F12 ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<FK12>, clearmods=Mod5) ]
+    };
     key <BKSP> {         [       BackSpace,       BackSpace ] };
     key  <TAB> {         [             Tab,    ISO_Left_Tab ] };
     key <AD01> {
