@@ -53,7 +53,6 @@
   "terminal.integrated.rendererType": "dom",
   "terminal.integrated.shell.windows": "bash",
   "workbench.activityBar.visible": false,
-  "workbench.colorTheme": "Default Light+",
   "window.zoomLevel": 0,
   "window.menuBarVisibility": "default",
 }

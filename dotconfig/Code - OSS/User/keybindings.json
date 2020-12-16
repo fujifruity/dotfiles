@@ -1,6 +1,6 @@
 // Place your key bindings in this file to override the defaults
 [
-    // switch group
+    // switch group (vim's split window)
     {
         "key": "alt+tab",
         "command": "workbench.action.focusNextGroup"
@@ -9,19 +9,19 @@
         "key": "shift+alt+tab",
         "command": "workbench.action.focusPreviousGroup"
     },
-    // toggle-input-method and toggle-terminal
-    {
-        "key": "alt+f12",
-        "command": "workbench.action.terminal.toggleTerminal"
-    },
-    {
-        "key": "ctrl+`",
-        "command": "-workbench.action.terminal.toggleTerminal"
-    },
     //  vim_ctrl+h and find-replace
     {
         "key": "ctrl+h",
         "command": "editor.action.startFindReplaceAction",
         "when": "vim.mode != 'Insert'"
+    },
+    // toggle terminal in ubuntu-way
+    {
+        "key": "ctrl+alt+t",
+        "command": "workbench.action.terminal.toggleTerminal"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "-workbench.action.terminal.toggleTerminal"
     },
 ]

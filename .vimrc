@@ -36,6 +36,7 @@ set cryptmethod=blowfish2
 
 "" Tabs
 set shiftwidth=4
+set tabstop=4
 
 "" Edit new file without saving current buffer
 set hidden
@@ -44,6 +45,7 @@ set hidden
 set hlsearch
 set incsearch
 " search case-sensitively only if it contains capital
+set ignorecase
 set smartcase
 
 "" Mouse
@@ -112,8 +114,9 @@ nmap <leader>gg  :Git<CR>
 nmap <leader>gb  :Gblame<CR>
 nmap <leader>gd  :Gvdiff<CR>
 nmap <leader>gr  :Gremove<CR>
-"" Open current line on GitHub
-nmap <leader>o :.Gbrowse<CR>
+"" gitgutter
+nmap <leader>gn  :GitGutterNextHunk<cr>
+nmap <leader>gp  :GitGutterPrevHunk<cr>
 
 "" Highlight
 nmap <Esc><Esc> :noh<CR>
@@ -186,7 +189,7 @@ nmap <leader>fb  :Buffers<CR>
 " Rg [PATTERN] 	rg search result (ALT-A to select all, ALT-D to deselect all)
 " Lines [QUERY] 	Lines in loaded buffers
 " BLines [QUERY] 	Lines in the current buffer
-nmap <leader>fl  :Blines<space>
+nmap <leader>fl  :BLines<space>
 " Marks 	Marks
 " Locate PATTERN 	locate command output
 " Snippets 	Snippets (UltiSnips)

@@ -1,6 +1,7 @@
 
 // Memo:
 // Menu -> Super_R
+// PrintScreen -> Super_R
 // Caps_Lock -> Mode_switch
 // Escape -> Caps_Lock
 // space -> Shift_L
@@ -1425,8 +1426,7 @@ xkb_symbols "pc+us+inet(evdev)" {
     };
     key <AB10> {
         type= "CUST_CAPSLOCK",
-        symbols[Group1]= [           slash,            question,               Menu],
-        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<MENU>, clearmods=Mod5) ]
+        symbols[Group1]= [           slash,            question,               Menu]
     };
     key <RTSH> {         [           space ] };
     key <KPMU> {
@@ -1523,7 +1523,7 @@ xkb_symbols "pc+us+inet(evdev)" {
     };
     key <PRSC> {
         type= "PC_ALT_LEVEL2",
-        symbols[Group1]= [           Print,         Sys_Req ]
+        symbols[Group1]= [           Super_R,         Sys_Req ]
     };
     key <RALT> {
         type= "TWO_LEVEL",

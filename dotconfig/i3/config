@@ -18,9 +18,9 @@ set $notify /usr/bin/notify-send
 ### Key bindings
 #
 bindsym $mod+f        fullscreen toggle
-bindsym $mod+minus      splitv ; exec $term -e tmux
-bindsym $mod+backslash  splith ; exec $term -e tmux
-bindsym $mod+Return     exec    $term -e fish
+bindsym $mod+minus      splitv ; exec $term -e fish
+bindsym $mod+backslash  splith ; exec $term -e fish
+bindsym $mod+Return     exec    $term -e tmux
 bindsym $mod+Shift+q    kill
 bindsym $mod+Shift+r    restart
 bindsym $mod+Shift+c    reload
@@ -145,13 +145,12 @@ mode "Resize" {
 ## Set colors
 #
 set $white  #ffffff
-set $gray3  #999999
-set $gray2  #666666
-set $gray1  #333333
+set $gray2  #cccccc
+set $gray1  #444444
 set $gray0  #222222
 set $red    #0288d1
 ##class                 border backgr text   indicator child_border
-client.focused          $gray1 $gray1 $white $red      $gray3
+client.focused          $gray1 $gray1 $white $red      $gray2
 client.focused_inactive $gray1 $gray1 $white $red      $gray1
 client.unfocused        $gray0 $gray0 $gray2 $red      $gray0
 
