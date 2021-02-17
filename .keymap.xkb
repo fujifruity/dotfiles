@@ -4,9 +4,6 @@
 // PrintScreen -> Super_R
 // Caps_Lock -> Mode_switch
 // Escape -> Caps_Lock
-// space -> Shift_L
-// Shift_R -> space
-// Shift_L -> space
 // Mod5 + u -> Home
 // Mod5 + i -> Prior
 // Mod5 + o -> Next
@@ -1376,14 +1373,10 @@ xkb_symbols "pc+us+inet(evdev)" {
         symbols[Group1]= [               l,               L,               Right],
         actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<RGHT>, clearmods=Mod5) ]
     };
-    key <AC10> {
-        type= "CUST_CAPSLOCK",
-        symbols[Group1]= [       semicolon,           colon,               space],
-        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<LFSH>, clearmods=Mod5) ]
-    };
+    key <AC10> {         [       semicolon,           colon ] };
     key <AC11> {         [      apostrophe,        quotedbl ] };
     key <TLDE> {         [           grave,      asciitilde ] };
-    key <LFSH> {         [           space ] };
+    key <LFSH> {         [           Shift_L ] };
     key <BKSL> {         [       backslash,             bar ] };
     key <AB01> {
         type= "ALPHABETIC",
@@ -1428,13 +1421,13 @@ xkb_symbols "pc+us+inet(evdev)" {
         type= "CUST_CAPSLOCK",
         symbols[Group1]= [           slash,            question,               Menu]
     };
-    key <RTSH> {         [           space ] };
+    key <RTSH> {         [           Shift_R ] };
     key <KPMU> {
         type= "CTRL+ALT",
         symbols[Group1]= [     KP_Multiply,     KP_Multiply,     KP_Multiply,     KP_Multiply,   XF86ClearGrab ]
     };
     key <LALT> {         [           Alt_L,          Meta_L ] };
-    key <SPCE> {         [         Shift_L ] };
+    key <SPCE> {         [         space ] };
     key <CAPS> {         [     Mode_switch ] };
     key <FK01> {
         type= "CTRL+ALT",
@@ -1666,7 +1659,8 @@ xkb_symbols "pc+us+inet(evdev)" {
     modifier_map Lock { <ESC> };
     modifier_map Control { <LCTL> };
     modifier_map Control { <RCTL> };
-    modifier_map Shift { <SPCE> };
+    modifier_map Shift { <LFSH> };
+    modifier_map Shift { <RTSH> };
     modifier_map Mod1 { <LALT> };
     modifier_map Mod1 { <META> };
     modifier_map Mod1 { <RALT> };
