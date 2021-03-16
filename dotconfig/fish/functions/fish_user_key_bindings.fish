@@ -1,15 +1,24 @@
 function fish_user_key_bindings
 
 	## Greeting message
-	set -U fish_greeting "\
- Alt + ↑/↓ : search history for token
- Alt + w   : short description
- Alt + p   : append `| less --ignore-case`
- Alt + t   : prepend `tldr `
- Alt + /   : prepend `cd `
- Alt + e   : prepend `sudo -E `
-Ctrl + x   : fg
-gibo       : gitignore boilerplates\
+	set -U fish_greeting "term
+    A ↑|↓      search history for token
+    A w        short description
+    gibo       gitignore boilerplates
+vim
+    C t|x|v    fzf.vim opens in new (tab|split|vsplit)
+    gt|gT      tab next|prev
+    [n]gt      nth tab
+    <Leader>hp preview the hunk
+    <Leader>hs stage the hunk
+    <Leader>hu undo the hunk
+tmux
+    A n        new-window
+    A ←|→      next|previous-window
+   AS ←|→      swap-window
+    A -|\      split-window
+    S ←|↓|↑|→  select-pane
+    C ↑        copy-mode\
 "
 
 	## Alt+p : append `| less -i`

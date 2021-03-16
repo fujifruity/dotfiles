@@ -1,4 +1,5 @@
 set showmode
+set ignorecase
 set smartcase
 set incsearch
 set hlsearch
@@ -19,6 +20,7 @@ vmap // y/<C-R>0<CR>
 "" Plugin emulation
 set surround
 set easymotion
+set commentary
 
 "" Use only 2-char search of EasyMotion
 let g:EasyMotion_do_mapping = 0 "Disable default mappings

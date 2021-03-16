@@ -3,16 +3,18 @@ function capture --description 'Takes screen (shot|record). `capture record` tog
     or return
 
     set dir_date /tmp/(date +'%Y%m%d_%H%M%S')
+	set pic_ext 'jpg'
+	set mov_ext 'mp4'
 
     if test $argv[1] = 'shot'
         function show_msg ; notify-send -u low captured ; end
         if set -lq _flag_s
             # grim -g (slurp) $dir_date'.png'
-            scrot --select $dir_date'.png'
+            scrot --select $dir_date.$pic_ext
             show_msg
         else
             # grim $dir_date'.png'
-            scrot $dir_date'.png'
+            scrot $dir_date.$pic_ext
             show_msg
         end
     else if test $argv[1] = 'record' ; and type -q wf-recorder
@@ -21,10 +23,10 @@ function capture --description 'Takes screen (shot|record). `capture record` tog
         else
             function show_msg ; notify-send -u low start recording ; end
             if set -lq _flag_s
-                wf-recorder -g (slurp) -f $dir_date'.mp4' &
+                wf-recorder -g (slurp) -f $dir_date.$mov_ext &
                 show_msg
             else
-                wf-recorder -f $dir_date'.mp4' &
+                wf-recorder -f $dir_date.$mov_ext &
                 show_msg
             end
         end

@@ -13,9 +13,9 @@ Plug 'Raimondi/delimitMate'    " automatic closing of surroundings
 Plug 'w0rp/ale'                " linter
 Plug 'Yggdroot/indentLine'
 Plug 'sheerun/vim-polyglot'    " syntax highlighting
+Plug 'justinmk/vim-sneak'      " 2-char search with s
 Plug '/usr/bin/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'justinmk/vim-sneak'      " 2-char search with s
 Plug 'junegunn/vim-easy-align' " ga<action>
 Plug 'lifepillar/vim-solarized8'
 
@@ -24,6 +24,9 @@ call plug#end()
 "*****************************************************************************
 "" Basic Setup
 "*****************************************************************************"
+
+"" Map leader to
+let mapleader = "\<Space>"
 
 "" shell
 set shell=/usr/bin/fish
@@ -47,6 +50,7 @@ set incsearch
 " search case-sensitively only if it contains capital
 set ignorecase
 set smartcase
+let g:sneak#use_ic_scs = 1
 
 "" Mouse
 set mouse=a
@@ -89,13 +93,6 @@ nmap n nzzzv
 nmap N Nzzzv
 
 "*****************************************************************************
-"" Commands
-"*****************************************************************************
-
-" remove trailing whitespaces
-command! FixWhitespace :%s/\s\+$//e
-
-"*****************************************************************************
 "" Mappings
 "*****************************************************************************
 
@@ -106,17 +103,14 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 "" fugitive
-nmap <leader>ga  :Gwrite<CR>
+nmap <leader>gg  :Gstatus<CR>
+nmap <leader>gw  :Gwrite<CR>
 nmap <leader>gc  :Gcommit<CR>
 nmap <leader>gsh :Gpush<CR>
 nmap <leader>gll :Gpull<CR>
-nmap <leader>gg  :Git<CR>
 nmap <leader>gb  :Gblame<CR>
 nmap <leader>gd  :Gvdiff<CR>
 nmap <leader>gr  :Gremove<CR>
-"" gitgutter
-nmap <leader>gn  :GitGutterNextHunk<cr>
-nmap <leader>gp  :GitGutterPrevHunk<cr>
 
 "" Highlight
 nmap <Esc><Esc> :noh<CR>
@@ -157,8 +151,9 @@ nmap <leader>w!  :q!<CR>
 
 "" Tabpage
 nmap <leader>tt  :tabnew<cr>
-nmap <leader>th  :tabprevious<cr>
-nmap <leader>tl  :tabnext<cr>
+" nmap <leader>te  :tabnew<space>  
+" nmap <leader>th  :tabprevious<cr> ==> gt
+" nmap <leader>tl  :tabnext<cr>     ==> gT
 nmap <leader>t1  :tabfirst<cr>
 nmap <leader>t9  :tablast<cr>
 
@@ -173,7 +168,7 @@ nmap <leader><F12>  :terminal<CR>
 
 "" FZF
 " Files [PATH] 	Files (similar to :FZF)
-nmap <leader>ff  :Files %:h<cr>
+nmap <leader>ff  :Files %:p:h<cr>
 " History 	    v:oldfiles and open buffers
 nmap <leader>fh  :History<CR>
 " `History:` 	Command history

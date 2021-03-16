@@ -34,17 +34,17 @@ set $output1 eDP-1
 set $output2 HDMI-1
 set $size 1360x768
 # bindsym $mod+F8         exec    xrandr --output $output2 --mode $size --right-of $output1
-bindsym $mod+F8         exec    xrandr --output $output2 --mode $size --same-as $output1
-bindsym $mod+Shift+F8   exec    xrandr --output $output2 --off
-bindsym $mod+F7         exec fish -c "auto_backlight"
-bindsym $mod+F9         exec fish -c "pul toggle"
-bindsym $mod+F10        exec fish -c "vol mute"
-bindsym $mod+F11        exec fish -c "vol down"
-bindsym $mod+F12        exec fish -c "vol up"
-bindsym Print           exec fish -c "capture shot"
-bindsym Shift+Print     exec fish -c "capture shot --selection"
-bindsym Alt+Print       exec fish -c "capture record"
-bindsym Alt+Shift+Print exec fish -c "capture record --selection"
+bindsym $mod+F8          exec xrandr --output $output2 --mode $size --same-as $output1
+bindsym $mod+Shift+F8    exec xrandr --output $output2 --off
+bindsym $mod+F7          exec fish -c "auto_backlight"
+bindsym $mod+F9          exec fish -c "pul toggle"
+bindsym $mod+F10         exec fish -c "vol mute"
+bindsym $mod+F11         exec fish -c "vol down"
+bindsym $mod+F12         exec fish -c "vol up"
+bindsym $mod+p           exec fish -c "capture shot"
+bindsym $mod+Alt+p       exec fish -c "capture record"
+bindsym --release $mod+Shift+p     exec fish -c "capture shot --selection"
+bindsym --release $mod+Alt+Shift+p exec fish -c "capture record --selection"
 # bindsym Menu            exec notify-send "Menu"
 
 # Move focus
@@ -184,7 +184,7 @@ exec fish -c random_wallpaper
 exec fish -c "is_laptop ; and auto_backlight"
 exec xrandr --auto
 exec xset r rate 190 20
-exec xautolock -time 7 -notify 7 -notifier "$notify zzz" -locker "systemctl suspend" -detectsleep -corners 000- 
+exec xautolock -time 7 -notify 10 -notifier "$notify zzz" -locker "systemctl suspend" -detectsleep -corners 000- 
 exec ibus-daemon --daemonize --replace
 exec dunst 
 exec systemctl --user start redshift
