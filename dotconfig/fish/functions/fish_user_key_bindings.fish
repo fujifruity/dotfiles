@@ -2,9 +2,10 @@ function fish_user_key_bindings
 
 	## Greeting message
 	set -U fish_greeting "term
-    A ↑|↓      search history for token
+    A ^|v      search history for token
     A w        short description
-    gibo       gitignore boilerplates
+    v (less)   edit in editor
+    type rather than which
 vim
     C t|x|v    fzf.vim opens in new (tab|split|vsplit)
     gt|gT      tab next|prev
@@ -14,15 +15,23 @@ vim
     <Leader>hu undo the hunk
 tmux
     A n        new-window
-    A ←|→      next|previous-window
-   AS ←|→      swap-window
+    A <|>      next|previous-window
+   AS <|>      swap-window
     A -|\      split-window
-    S ←|↓|↑|→  select-pane
-    C ↑        copy-mode\
+    S <|v|^|>  select-pane
+    C ^        copy-mode\
 "
 
-	## Alt+p : append `| less -i`
-	bind \ep 'commandline --append " | less --ignore-case"'
+	function fzf-bcd-widget -d 'cd backwards'
+		pwd | awk -v RS=/ '/\n/ {exit} {p=p $0 "/"; print p}' | tac | eval (__fzfcmd) +m --select-1 --exit-0 --reverse $FZF_DEFAULT_OPTS | read -l result
+		[ "$result" ]; and cd $result
+		commandline -f repaint
+	end
+
+	## Alt+c : cd backwards
+	bind \eC fzf-bcd-widget
+	## Alt+p : insert `less`
+	bind \ep 'commandline --insert " less "'
 	## Alt+t  : prepend `tldr`
 	bind \et 'commandline " tldr "(commandline)'
 	## Alt+/  : prepend `cd`
