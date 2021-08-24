@@ -58,28 +58,26 @@ bindsym $mod+Shift+$down  move down
 bindsym $mod+Shift+$up    move up
 bindsym $mod+Shift+$right move right
 # Switch workspace
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10
+bindsym $mod+1 workspace number " 1 "
+bindsym $mod+2 workspace number " 2 "
+bindsym $mod+3 workspace number " 3 "
+bindsym $mod+4 workspace number " 4 "
+bindsym $mod+5 workspace number " 5 "
+bindsym $mod+6 workspace number " 6 "
+bindsym $mod+7 workspace number " 7 "
+bindsym $mod+8 workspace number " 8 "
+bindsym $mod+9 workspace number " 9 "
 # bindsym $mod+Tab       workspace next_on_output
 # bindsym $mod+Shift+Tab workspace prev_on_output
-bindsym $mod+Shift+1    move container to workspace number 1 ; workspace number 1
-bindsym $mod+Shift+2    move container to workspace number 2 ; workspace number 2
-bindsym $mod+Shift+3    move container to workspace number 3 ; workspace number 3
-bindsym $mod+Shift+4    move container to workspace number 4 ; workspace number 4
-bindsym $mod+Shift+5    move container to workspace number 5 ; workspace number 5
-bindsym $mod+Shift+6    move container to workspace number 6 ; workspace number 6
-bindsym $mod+Shift+7    move container to workspace number 7 ; workspace number 7
-bindsym $mod+Shift+8    move container to workspace number 8 ; workspace number 8
-bindsym $mod+Shift+9    move container to workspace number 9 ; workspace number 9
-bindsym $mod+Shift+0    move container to workspace number 10 ; workspac numbere 10
+bindsym $mod+Shift+1    move container to workspace number " 1 " ; workspace number " 1 "
+bindsym $mod+Shift+2    move container to workspace number " 2 " ; workspace number " 2 "
+bindsym $mod+Shift+3    move container to workspace number " 3 " ; workspace number " 3 "
+bindsym $mod+Shift+4    move container to workspace number " 4 " ; workspace number " 4 "
+bindsym $mod+Shift+5    move container to workspace number " 5 " ; workspace number " 5 "
+bindsym $mod+Shift+6    move container to workspace number " 6 " ; workspace number " 6 "
+bindsym $mod+Shift+7    move container to workspace number " 7 " ; workspace number " 7 "
+bindsym $mod+Shift+8    move container to workspace number " 8 " ; workspace number " 8 "
+bindsym $mod+Shift+9    move container to workspace number " 9 " ; workspace number " 9 "
 # bindsym $mod+braceright move container to workspace next_on_output ; workspace next_on_output
 # bindsym $mod+braceleft  move container to workspace prev_on_output ; workspace prev_on_output
 
@@ -106,7 +104,7 @@ bindsym $mod+a focus parent
 bindsym $mod+o mode "Launcher" ; exec fish -c launcher_guide
 set $mozc       /usr/lib/mozc/mozc_tool --mode=config_dialog
 mode "Launcher" {
-    bindsym a       exec alacritty -e fish          ; mode "default"
+    bindsym a       exec $term -e fish              ; mode "default"
     bindsym c       exec code                       ; mode "default"
     bindsym f       exec firefox                    ; mode "default"
     bindsym m       exec $mozc                      ; mode "default"
@@ -159,7 +157,7 @@ client.unfocused        $gray0 $gray0 $gray2 $red      $gray0
 bar {
     # i3bar_command /usr/bin/i3bar
     status_command fish -c statusline
-    position top
+    position bottom
     font pango:Source Code Pro semibold 11
     colors {
         statusline $white

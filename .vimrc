@@ -40,6 +40,7 @@ set cryptmethod=blowfish2
 "" Tabs
 set shiftwidth=4
 set tabstop=4
+set expandtab
 
 "" Edit new file without saving current buffer
 set hidden
@@ -47,17 +48,13 @@ set hidden
 "" Searching
 set hlsearch
 set incsearch
-" search case-sensitively only if it contains capital
+" search case-sensitively if it contains capital
 set ignorecase
 set smartcase
 let g:sneak#use_ic_scs = 1
 
 "" Mouse
-set mouse=a
-
-"" Move cursor by display lines when wrapping
-noremap <silent> k gk
-noremap <silent> j gj
+" set mouse=a
 
 "" Do not enter Ex-mode 
 :map Q <Nop>
@@ -86,6 +83,8 @@ set scrolloff=3
 
 "" Always show status bar
 set laststatus=2
+"" Show branch name in status bar 
+set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
@@ -136,24 +135,21 @@ nmap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 vmap // y/<C-R>0<CR>
 
 "" Buffer
-nmap <leader>b\  :rightbelow vnew<CR>
+nmap <leader>b/  :rightbelow vnew<CR>
 nmap <leader>b-  :belowright new<CR>
-nmap <leader>bw  :w<CR>
+nmap <leader>w  :w<CR>
 nmap <leader>bd  :bd<CR>
 "" Go to the MRU buffer
 nmap <leader><tab>  :e #<cr>
 
 "" window
-nmap <leader>w\  :<C-u>vsplit<CR><c-w>l
+nmap <leader>w/  :<C-u>vsplit<CR><c-w>l
 nmap <leader>w-  :<C-u>split<CR><c-w>j
-nmap <leader>wq  :q<CR>
-nmap <leader>w!  :q!<CR>
+nmap <leader>q  :q<CR>
+nmap <leader>!  :q!<CR>
 
 "" Tabpage
 nmap <leader>tt  :tabnew<cr>
-" nmap <leader>te  :tabnew<space>  
-" nmap <leader>th  :tabprevious<cr> ==> gt
-" nmap <leader>tl  :tabnext<cr>     ==> gT
 nmap <leader>t1  :tabfirst<cr>
 nmap <leader>t9  :tablast<cr>
 

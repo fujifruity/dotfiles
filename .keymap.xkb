@@ -4,15 +4,16 @@
 // PrintScreen -> Super_R
 // Caps_Lock -> Mode_switch
 // Escape -> Caps_Lock
-// Mod5 + u -> Home
+// Mod5 + u -> Ctrl+Prior
 // Mod5 + i -> Prior
 // Mod5 + o -> Next
-// Mod5 + p -> End
+// Mod5 + p -> Ctrl+Next
 // Mod5 + h -> Left
 // Mod5 + j -> Down
 // Mod5 + k -> Up
 // Mod5 + l -> Right
-// Mod5 + ; -> space
+// Mod5 + ; -> Home
+// Mod5 + ' -> End
 // Mod5 + m -> Return
 // Mod5 + comma -> BackSpace
 // Mod5 + period -> Delete
@@ -1305,23 +1306,23 @@ xkb_symbols "pc+us+inet(evdev)" {
     };
     key <AD07> {
         type= "CUST_CAPSLOCK",
-        symbols[Group1]= [               u,               U,   Home ],
-        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<HOME>, clearmods=Mod5) ]
+        symbols[Group1]= [               u,               U,   Prior ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<PGUP>,mods=Control) ]
     };
     key <AD08> {
         type= "CUST_CAPSLOCK",
         symbols[Group1]= [               i,               I,   Prior],
-        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<PGUP>, clearmods=Mod5) ]
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(clearmods=Mod5) ]
     };
     key <AD09> {
         type= "CUST_CAPSLOCK",
         symbols[Group1]= [               o,               O,   Next],
-        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<PGDN>, clearmods=Mod5) ]
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(clearmods=Mod5) ]
     };
     key <AD10> {
         type= "CUST_CAPSLOCK",
-        symbols[Group1]= [               p,               P,   End ],
-        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<END>, clearmods=Mod5) ]
+        symbols[Group1]= [               p,               P,   Next ],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<PGDN>,mods=Control) ]
     };
     key <AD11> {
         type= "ALPHABETIC",
@@ -1373,8 +1374,16 @@ xkb_symbols "pc+us+inet(evdev)" {
         symbols[Group1]= [               l,               L,               Right],
         actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<RGHT>, clearmods=Mod5) ]
     };
-    key <AC10> {         [       semicolon,           colon ] };
-    key <AC11> {         [      apostrophe,        quotedbl ] };
+    key <AC10> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [       semicolon,           colon,                Home],
+        actions[Group1]= [      NoAction(),      NoAction(),   RedirectKey(keycode=<HOME>, clearmods=Mod5) ]
+    };
+    key <AC11> {
+        type= "CUST_CAPSLOCK",
+        symbols[Group1]= [       apostrophe,       quotedbl,                 End],
+        actions[Group1]= [       NoAction(),     NoAction(),   RedirectKey(keycode=<END>,  clearmods=Mod5) ]
+    };
     key <TLDE> {         [           grave,      asciitilde ] };
     key <LFSH> {         [           Shift_L ] };
     key <BKSL> {         [       backslash,             bar ] };

@@ -30,17 +30,13 @@ tmux
 
 	## Alt+c : cd backwards
 	bind \eC fzf-bcd-widget
-	## Alt+p : insert `less`
 	bind \ep 'commandline --insert " less "'
-	## Alt+t  : prepend `tldr`
 	bind \et 'commandline " tldr "(commandline)'
 	## Alt+/  : prepend `cd`
 	bind \e. 'commandline " cd "(commandline)'
-	## Alt+v  : prepend ` vim`
 	bind \ev 'commandline " vim "(commandline)'
-	## Alt+e  : prepend `sudo -E vim`
 	bind \ee 'commandline "sudo -E "(commandline)'
-	## Ctrl+x : fg
+	bind \e\cS 'git status ; commandline -f repaint'
 	bind \cx fg
 
 end
