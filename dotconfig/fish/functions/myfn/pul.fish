@@ -93,9 +93,9 @@ function pul --description 'Rotates output of pulseaudio; Prints an icon of curr
         notify-send -u low (icon)
     end
 
-    if test $argv[1] = 'toggle' ^/dev/null
+    if test $argv[1] = 'toggle'
         toggle
-    else if test $argv[1] = 'icon' ^/dev/null
+    else if test $argv[1] = 'icon'
         icon
     else
         echo 'Give an argument: (toggle|icon)'

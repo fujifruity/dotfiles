@@ -3,7 +3,7 @@ function capture --description 'Takes screen (shot|record). `capture record` tog
     or return
 
     set dir_date /tmp/(date +'%Y%m%d_%H%M%S')
-	set pic_ext 'jpg'
+	set pic_ext 'png'
 	set mov_ext 'mp4'
 
     if test $argv[1] = 'shot'

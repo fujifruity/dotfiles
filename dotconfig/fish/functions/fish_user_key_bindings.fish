@@ -5,7 +5,7 @@ function fish_user_key_bindings
     A ^|v      search history for token
     A w        short description
     v (less)   edit in editor
-    type rather than which
+    type       (which)
 vim
     C t|x|v    fzf.vim opens in new (tab|split|vsplit)
     gt|gT      tab next|prev
@@ -15,8 +15,8 @@ vim
     <Leader>hu undo the hunk
 tmux
     A n        new-window
-    A <|>      next|previous-window
-   AS <|>      swap-window
+    C PgDn|Up  next|previous-window
+   CS PgDn|Up  swap-window
     A -|\      split-window
     S <|v|^|>  select-pane
     C ^        copy-mode\
@@ -35,7 +35,7 @@ tmux
 	## Alt+t  : prepend `tldr`
 	bind \et 'commandline " tldr "(commandline)'
 	## Alt+/  : prepend `cd`
-	bind \e/ 'commandline " cd "(commandline)'
+	bind \e. 'commandline " cd "(commandline)'
 	## Alt+v  : prepend ` vim`
 	bind \ev 'commandline " vim "(commandline)'
 	## Alt+e  : prepend `sudo -E vim`
