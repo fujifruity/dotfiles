@@ -1,30 +1,43 @@
-function vol --description 'Adjusts audio volume. Takes an argument: (mute | up | down)'
-  function volume
-    # checks running sink first
-    echo (pactl list sinks) | string replace -rf '.*(?<=RUNNING).*?(\d+)%.*' '$1'
-    or echo (pactl list sinks) | string match -r '\d+(?=%)'
-  end
+function vol --description 'Set audio volume. Argument: (mute|up|down)'
 
-  if test $argv[1] = 'mute'
-    pactl set-sink-mute @DEFAULT_SINK@ toggle
-    notify-send -u low (pul icon)
+    # for debug
+    function dump-sinks-sources
+        for v in sinks sink-inputs sources source-outputs
+            echo $v
+            pactl list short $v
+        end
+    end
 
-  else if test $argv[1] = 'up'
-    pactl set-sink-mute @DEFAULT_SINK@ 0
-    set vol ( min (math -s0 (volume)' * 1.1 + 1') 150 )
-    eval 'pactl set-sink-volume @DEFAULT_SINK@ '$vol'%'
-    #notify-send -u low (string sub --length 1 (pul icon))$vol'%'
-    notify-send -u low (pul icon)$vol'%'
+    function current-sink-volume
+        pactl get-sink-volume (current_sink_id) | string match -r '\d+(?=%)'
+    end
 
-  else if test $argv[1] = 'down'
-    pactl set-sink-mute @DEFAULT_SINK@ 0
-    set vol (math -s0 (volume) / 1.1 )
-    eval 'pactl set-sink-volume @DEFAULT_SINK@ '$vol'%'
-    #notify-send -u low (string sub --length 1 (pul icon))$vol'%'
-    notify-send -u low (pul icon)$vol'%'
+    function set-volume # (argv[1]: int)
+        pactl set-sink-mute (current_sink_id) 0
+        pactl set-sink-volume (current_sink_id) $argv[1]'%'
+        notify-send -u low (audio_icon)$argv[1]'%'
+    end
 
-  else
-    echo 'Give an argument: (mute | up | down)'
-    false
-  end
+    function is-mute
+        pactl get-sink-mute (current_sink_id) | grep -q yes
+    end
+
+    if test $argv[1] = mute
+        pactl set-sink-mute (current_sink_id) toggle
+        if is-mute
+            notify-send -u low (audio_icon)'mute'
+        else
+            notify-send -u low (audio_icon)(current-sink-volume)'%'
+        end
+    else if test $argv[1] = up
+        set vol (min (math -s0 (current-sink-volume)' * 1.1 + 1') 150)
+        set-volume $vol
+    else if test $argv[1] = down
+        set vol (math -s0 (current-sink-volume) / 1.1)
+        set-volume $vol
+    else
+        echo 'Argument: (mute|up|down)'
+        false
+    end
+
 end
