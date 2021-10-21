@@ -13,6 +13,7 @@ Plug 'Raimondi/delimitMate'    " automatic closing of surroundings
 Plug 'w0rp/ale'                " linter
 Plug 'Yggdroot/indentLine'
 Plug 'sheerun/vim-polyglot'    " syntax highlighting
+Plug 'chiel92/vim-autoformat'  " code formatting
 Plug 'justinmk/vim-sneak'      " 2-char search with s
 Plug '/usr/bin/fzf'
 Plug 'junegunn/fzf.vim'
@@ -102,13 +103,14 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 "" fugitive
-nmap <leader>gg  :Gstatus<CR>
+nmap <leader>gg  :Git<CR>
+nmap <leader>gl  :Gclog<CR>
 nmap <leader>gw  :Gwrite<CR>
-nmap <leader>gc  :Gcommit<CR>
-nmap <leader>gsh :Gpush<CR>
-nmap <leader>gll :Gpull<CR>
-nmap <leader>gb  :Gblame<CR>
-nmap <leader>gd  :Gvdiff<CR>
+nmap <leader>gc  :Git commit<CR>
+nmap <leader>gsh :Git push<CR>
+nmap <leader>gll :Git pull<CR>
+nmap <leader>gb  :Git blame<CR>
+nmap <leader>gd  :Git vdiff<CR>
 nmap <leader>gr  :Gremove<CR>
 
 "" Highlight
@@ -137,21 +139,15 @@ vmap // y/<C-R>0<CR>
 "" Buffer
 nmap <leader>b/  :rightbelow vnew<CR>
 nmap <leader>b-  :belowright new<CR>
-nmap <leader>w  :w<CR>
+nmap <leader>ww  :w<CR>
+nmap <leader>wq  :wq<CR>
 nmap <leader>bd  :bd<CR>
 "" Go to the MRU buffer
 nmap <leader><tab>  :e #<cr>
 
 "" window
-nmap <leader>w/  :<C-u>vsplit<CR><c-w>l
-nmap <leader>w-  :<C-u>split<CR><c-w>j
 nmap <leader>q  :q<CR>
 nmap <leader>!  :q!<CR>
-
-"" Tabpage
-nmap <leader>tt  :tabnew<cr>
-nmap <leader>t1  :tabfirst<cr>
-nmap <leader>t9  :tablast<cr>
 
 "" Marks
 nmap <leader>m  :marks<CR>
@@ -178,6 +174,7 @@ nmap <leader>fb  :Buffers<CR>
 " BCommits 	Git commits for the current buffer
 " Ag [PATTERN] 	ag search result (ALT-A to select all, ALT-D to deselect all)
 " Rg [PATTERN] 	rg search result (ALT-A to select all, ALT-D to deselect all)
+nmap <leader>fr  :Rg<space>
 " Lines [QUERY] 	Lines in loaded buffers
 " BLines [QUERY] 	Lines in the current buffer
 nmap <leader>fl  :BLines<space>
