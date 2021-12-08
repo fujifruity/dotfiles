@@ -37,6 +37,9 @@ tmux
 	bind \ev 'commandline " vim "(commandline)'
 	bind \ee 'commandline "sudo -E "(commandline)'
 	bind \e\cS 'git status ; commandline -f repaint'
+	bind \e\f  'git log ; commandline -f repaint'
+	bind \e\b  'git show ; commandline -f repaint'
+	bind \e\cD 'git diff ; commandline -f repaint'
 	bind \cx fg
 
 end

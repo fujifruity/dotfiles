@@ -22,4 +22,4 @@ function _notify_command_return --on-event fish_prompt
 end
 
 set -gx LESSOPEN "| cat %s"
-set -gx LESS " -Ri"
+set -gx LESS " -FRXi"

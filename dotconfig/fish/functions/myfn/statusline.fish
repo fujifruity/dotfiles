@@ -5,7 +5,7 @@ function statusline
     set bat_dir /sys/class/power_supply/BAT0/
 
     while true
-        if test -d $bat_dir
+        if test -d "$bat_dir"
 			# looks like "64% / "
             set bat_slash ""(acpi | awk -F ',' '{ print $2 }' | tr -d ' ')" / "
         end

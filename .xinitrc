@@ -19,9 +19,9 @@ if [ -f "$userresources" ]; then
     xrdb -merge "$userresources"
 fi
 
-# if [ -f "$usermodmap" ]; then
-#     xmodmap "$usermodmap"
-# fi
+if [ -f "$usermodmap" ]; then
+    xmodmap "$usermodmap"
+fi
 
 # start some nice programs
 
@@ -35,5 +35,4 @@ fi
 # export GTK_IM_MODULE=ibus
 # export QT_IM_MODULE=ibus
 # export XMODIFIERS=@im=ibus
-exec i3
-
+exec i3 
