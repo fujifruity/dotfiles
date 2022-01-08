@@ -3,22 +3,28 @@
 "*****************************************************************************
 call plug#begin('~/.vim/plugged')
 
+" git
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'       " required by fugitive to :Gbrowse
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-rhubarb'        " required by fugitive to :Gbrowse
 Plug 'airblade/vim-gitgutter'
-Plug 'Raimondi/delimitMate'    " automatic closing of surroundings
-Plug 'w0rp/ale'                " linter
+Plug 'aymericbeaumet/vim-symlink' " follow symlink (fugitive works only in git repo)
+Plug 'moll/vim-bbye'            " optional dependency of vim-symlink
+
+""Beauty
+Plug 'w0rp/ale'                 " linter
 Plug 'Yggdroot/indentLine'
-Plug 'sheerun/vim-polyglot'    " syntax highlighting
-Plug 'chiel92/vim-autoformat'  " code formatting
-Plug 'justinmk/vim-sneak'      " 2-char search with s
+Plug 'sheerun/vim-polyglot'     " syntax highlighting
+Plug 'Raimondi/delimitMate'     " automatic closing of surroundings
+Plug 'lifepillar/vim-solarized8'
+
+" Finger friendliness
+Plug 'chiel92/vim-autoformat'   " code formatting
+Plug 'justinmk/vim-sneak'       " 2-char search with s
+Plug 'tpope/vim-surround'
 Plug '/usr/bin/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-easy-align' " ga<action>
-Plug 'lifepillar/vim-solarized8'
+Plug 'junegunn/vim-easy-align'  " ga<action>
 
 call plug#end()
 
@@ -104,14 +110,23 @@ nmap ga <Plug>(EasyAlign)
 
 "" fugitive
 nmap <leader>gg  :Git<CR>
-nmap <leader>gl  :Gclog<CR>
+nmap <leader>gb  :Git branch<CR>
+def MyGclog()
+    if @% =~# '.git/index$' " if in fugitive index:
+        Gclog 
+    else 
+        Gclog -- % 
+    endif
+enddef
+nmap <leader>gl  :call MyGclog()<CR>
 nmap <leader>gw  :Gwrite<CR>
 nmap <leader>gc  :Git commit<CR>
 nmap <leader>gsh :Git push<CR>
 nmap <leader>gll :Git pull<CR>
-nmap <leader>gb  :Git blame<CR>
+" nmap <leader>gb  :Git blame<CR>
 nmap <leader>gd  :Git vdiff<CR>
 nmap <leader>gr  :Gremove<CR>
+nmap <leader>gp  :GitGutterPreviewHunk<CR>
 
 "" Highlight
 nmap <Esc><Esc> :noh<CR>
