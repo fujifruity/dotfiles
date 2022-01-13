@@ -13,12 +13,10 @@ fzf_key_bindings
 
 ## Notify if finished command took time
 function _notify_command_return --on-event fish_prompt
-    if test $CMD_DURATION > /dev/null
-        if test $CMD_DURATION -gt (math "1000 * 9")
-            set sec (math -s0 "$CMD_DURATION / 1000")
-            notify-send "$history[1]" (date -d@$sec -u +%M:%S)
-        end
-    end
+    test $CMD_DURATION > /dev/null
+    and test $CMD_DURATION -gt (math "1000 * 9")
+    and set sec (math -s0 "$CMD_DURATION / 1000")
+    and dunstify "$history[1]" (date -d@$sec -u +%M:%S)
 end
 
 set -gx LESSOPEN "| cat %s"
