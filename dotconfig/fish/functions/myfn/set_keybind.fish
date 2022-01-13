@@ -1,10 +1,14 @@
 function set_keybind
 
     setxkbmap -layout us
-    set keymap (test -f .keymap-xrdp.xkb ; and echo ~/.keymap-xrdp.xkb ; or echo ~/.keymap.xkb)
-    xkbcomp $keymap $DISPLAY
+    xkbcomp ~/.keymap.xkb $DISPLAY
+
+    # Escape as extra modifier key
     killall xcape ^ /dev/null
     xcape -e "Mode_switch=Escape"
+
+    # repeat rate
+    exec xset r rate 190 20
 
 end
 

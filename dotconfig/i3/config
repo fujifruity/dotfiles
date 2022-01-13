@@ -192,8 +192,6 @@ focus_follows_mouse yes
 exec fish -c set_keybind 
 exec fish -c random_wallpaper 
 exec fish -c "is_laptop ; and auto_backlight"
-exec xrandr --auto
-exec xset r rate 190 20
 exec xautolock -time 7 -notify 10 -notifier "$notify zzz" -locker "systemctl suspend" -detectsleep -corners 000- 
 exec ibus-daemon --daemonize --replace
 exec dunst 
