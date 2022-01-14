@@ -39,6 +39,13 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 ## FZF
 source /usr/share/fzf/key-bindings.bash
 source /usr/share/fzf/completion.bash
+
+bind-fzf-cd() {
+  local key cmd
+  key=$1
+  cmd=$2
+  bind -m emacs-standard "\"$key\": \" \C-b\C-k \C-u \`$cmd\`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d\""
+}
 fzf-reverse() {
   cat - | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m 
 }
@@ -46,7 +53,8 @@ __fzf_cd_z__() {
   local dir
   dir=$(z -l | awk '{ print $2 }' | fzf-reverse) && printf 'cd %q' "$dir"
 }
-bind -m emacs-standard '"\ez": " \C-b\C-k \C-u`__fzf_cd_z__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+bind-fzf-cd '\ez' '__fzf_cd_z__'
+
 ancestors() {
   path=${1:-$(pwd)}
   init=$(echo $path | sed -E 's!(.*)/.*!\1!')
@@ -59,4 +67,5 @@ __fzf_cd_ancestors__() {
   local dir
   dir=$(ancestors | fzf-reverse) && printf 'cd %q' "$dir"
 }
-bind -m emacs-standard '"\eh": " \C-b\C-k \C-u`__fzf_cd_ancestors__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+bind-fzf-cd '\eh' '__fzf_cd_ancestors__'
+

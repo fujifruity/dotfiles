@@ -21,3 +21,4 @@ end
 
 set -gx LESSOPEN "| cat %s"
 set -gx LESS " -FRXi"
+set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/fuji/.ghcup/bin $PATH # ghcup-env
