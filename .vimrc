@@ -111,14 +111,7 @@ nmap ga <Plug>(EasyAlign)
 "" fugitive
 nmap <leader>gg  :Git<CR>
 nmap <leader>gb  :Git branch<CR>
-def MyGclog()
-    if @% =~# '.git/index$' " if in fugitive index:
-        Gclog 
-    else 
-        Gclog -- % 
-    endif
-enddef
-nmap <leader>gl  :call MyGclog()<CR>
+nmap <expr> <leader>gl @% =~# '.git/index$' ? ':Gclog<CR>' : ':Gclog -- %<CR>'
 nmap <leader>gw  :Gwrite<CR>
 nmap <leader>gc  :Git commit<CR>
 nmap <leader>gsh :Git push<CR>
@@ -152,8 +145,6 @@ nmap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 vmap // y/<C-R>0<CR>
 
 "" Buffer
-nmap <leader>b/  :rightbelow vnew<CR>
-nmap <leader>b-  :belowright new<CR>
 nmap <leader>ww  :w<CR>
 nmap <leader>wq  :wq<CR>
 nmap <leader>bd  :bd<CR>
@@ -163,15 +154,16 @@ nmap <leader><tab>  :e #<cr>
 "" window
 nmap <leader>q  :q<CR>
 nmap <leader>!  :q!<CR>
+nmap <leader>on :on<CR>
 
 "" Marks
 nmap <leader>m  :marks<CR>
-
 "" Registers
 nmap <leader>rr :reg<CR>
 
 "" Terminal
-nmap <leader><F12>  :terminal<CR>
+nmap <leader>``  :terminal<CR>
+nmap <leader>`v  :vert ter<CR>
 
 "" FZF
 " Files [PATH] 	Files (similar to :FZF)
