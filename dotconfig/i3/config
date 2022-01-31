@@ -20,7 +20,7 @@ set $notify /usr/bin/notify-send
 bindsym $mod+f        fullscreen toggle
 bindsym $mod+minus      splitv ; exec $term -e fish
 bindsym $mod+backslash  splith ; exec $term -e fish
-bindsym $mod+Return     exec $term -e tmux -u attach
+bindsym $mod+Return     exec $term -e tmux -u
 bindsym $mod+Shift+q    kill
 bindsym $mod+Shift+r    restart
 bindsym $mod+Shift+c    reload
@@ -183,14 +183,18 @@ bar {
 # Other
 #
 # assign [class="jetbrains-studio"] 2
+for_window [class="feh" instance="feh"] floating enable
+for_window [class="Thunar" instance="thunar"] floating enable
 font pango:Source Han Sans JP semibold 11
 default_border pixel 2
 default_floating_border pixel 2
 hide_edge_borders smart
 focus_follows_mouse yes
 
+exec fish -c set_gradient_wallpaper
+# exec xsetroot -solid "#333333"  # single color wallpaper
+
 exec fish -c set_keybind 
-exec fish -c random_wallpaper 
 exec fish -c "is_laptop ; and auto_backlight"
 exec xautolock -time 7 -notify 10 -notifier "$notify zzz" -locker "systemctl suspend" -detectsleep -corners 000- 
 exec ibus-daemon --daemonize --replace
