@@ -10,8 +10,7 @@ vim
     C t|x|v    fzf.vim opens in new (tab|split|vsplit)
     <Leader>hp preview the hunk
     <Leader>hs stage the hunk
-    <Leader>hu undo the hunk
-"
+    <Leader>hu undo the hunk"
 
 	function gen-fzf-cd-widget
         set -l cmd $argv[1]

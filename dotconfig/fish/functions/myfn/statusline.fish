@@ -1,16 +1,18 @@
-
 function statusline 
-
-    # show battery status if it exists
-    set bat_dir /sys/class/power_supply/BAT0/
-
     while true
-        if test -d "$bat_dir"
+        set msg (date "+%a %b %d %H:%M") 
+
+        # show battery status if it exists
+        if test -d '/sys/class/power_supply/BAT0/'
 			# looks like "64% / "
-            set bat_slash ""(acpi | awk -F ',' '{ print $2 }' | tr -d ' ')" / "
+            set -p msg ' '(acpi | awk -F ',' '{ print $2 }' | tr -d ' ')
         end
 
-        echo $bat_slash(date "+%a %b %d %H:%M") 
+        if is_mute
+            set -p msg ' mute'
+        end
+
+        string join ' / ' $msg
 
         sleep 3
     end

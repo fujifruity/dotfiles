@@ -1,4 +1,4 @@
-function vol --description 'Set audio volume. Argument: (mute|up|down)'
+function vol -a mode -d'Set audio volume. Argument: (mute|up|down)'
 
     set -g volmsgid 123 
 
@@ -14,29 +14,24 @@ function vol --description 'Set audio volume. Argument: (mute|up|down)'
         pactl get-sink-volume (current_sink_id) | string match -r '\d+(?=%)'
     end
 
-    function set_volume # (argv[1]: int)
-        set volume $argv[1]
+    function set_volume -a volume
         pactl set-sink-mute (current_sink_id) 0
         pactl set-sink-volume (current_sink_id) $volume'%'
         # Show the volume notification
         dunstify -a "changeVolume" -u low -i audio-volume-high -r "$volmsgid" -h int:value:"$volume" (audio_icon)' '$volume'%'
     end
 
-    function is_mute
-        pactl get-sink-mute (current_sink_id) | grep -q yes
-    end
-
-    if test $argv[1] = mute
+    if test $mode = mute
         pactl set-sink-mute (current_sink_id) toggle
         is_mute
-        and set msg 'mute'
-        or set msg (current_sink_volume)'%'
+        and set msg (audio_icon)
+        or set msg (audio_icon)' '(current_sink_volume)'%'
         # Show the sound muted notification
         dunstify -a "changeVolume" -u low -i audio-volume-muted -r "$volmsgid" "$msg"
-    else if test $argv[1] = up
+    else if test $mode = up
         set vol (min (math -s0 (current_sink_volume)' * 1.1 + 1') 150)
         set_volume $vol
-    else if test $argv[1] = down
+    else if test $mode = down
         set vol (math -s0 (current_sink_volume) / 1.1)
         set_volume $vol
     else

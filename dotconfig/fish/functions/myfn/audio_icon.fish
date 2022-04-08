@@ -6,7 +6,9 @@ function audio_icon --description 'Prints an icon of current output.'
         and test "$btsinkid" = (current_sink_id)
     end
 
-    if is-bt-active
+    if is_mute
+        set icon ' mute'
+    else if is-bt-active
         set icon ''
     else
         set activeport (pactl list sinks | string match '*Active Port*')
