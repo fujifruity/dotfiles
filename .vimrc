@@ -102,6 +102,18 @@ nmap N Nzzzv
 "" Mappings
 "*****************************************************************************
 
+"" Replace selection with random hex
+function! Randdec(len)
+    let seed = srand()
+    return range(a:len)->map({-> rand(seed) % 10})->map({_,n->printf('%d', n)})->join('')
+endfunction
+function! Randhex(len)
+    let seed = srand()
+    return range(a:len)->map({-> rand(seed) % 16})->map({_,n->printf('%x', n)})->join('')
+endfunction
+vmap <leader>rd c<C-R>=Randdec(len(@*))<CR><Esc>
+vmap <leader>rh c<C-R>=Randhex(len(@*))<CR><Esc>
+
 "" Align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)

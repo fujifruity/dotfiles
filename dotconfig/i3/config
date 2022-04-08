@@ -19,7 +19,7 @@ set $notify /usr/bin/notify-send
 #
 bindsym $mod+f        fullscreen toggle
 bindsym $mod+minus      splitv ; exec $term -e fish
-bindsym $mod+backslash  splith ; exec $term -e fish
+bindsym $mod+slash      splith ; exec $term -e fish
 bindsym $mod+Return     exec $term -e tmux -u
 bindsym $mod+Shift+q    kill
 bindsym $mod+Shift+r    restart
