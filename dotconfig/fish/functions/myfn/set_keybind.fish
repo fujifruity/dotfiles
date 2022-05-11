@@ -4,11 +4,11 @@ function set_keybind
     xkbcomp ~/.keymap.xkb $DISPLAY
 
     # Escape as extra modifier key
-    killall xcape ^ /dev/null
+    killall xcape
     xcape -e "Mode_switch=Escape"
 
     # repeat rate
-    exec xset r rate 190 20
+    xset r rate 190 20
 
 end
 

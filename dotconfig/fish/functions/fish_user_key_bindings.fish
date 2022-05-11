@@ -29,7 +29,7 @@ vim
 	function fzf-bcd-widget -d 'cd backwards'
         gen-fzf-cd-widget 'ancestors'
     end
-	bind \eC fzf-bcd-widget
+	bind \e. fzf-bcd-widget
 
 	function fzf-zcd-widget -d 'cd with z'
         gen-fzf-cd-widget "z -l | awk '{ print \$2 }'"
@@ -37,9 +37,7 @@ vim
 	bind \ez fzf-zcd-widget
 
 	bind \et 'commandline " tldr "(commandline)'
-	bind \e. 'commandline " cd "(commandline)'
 	bind \ev 'commandline " vim "(commandline)'
-	bind \ee 'commandline "sudo -E "(commandline)'
 	bind \e\cS 'git status ; commandline -f repaint'
 	bind \e\f  'git log ; commandline -f repaint'
 	bind \e\b  'git show ; commandline -f repaint'

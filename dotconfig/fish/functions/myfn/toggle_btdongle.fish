@@ -14,6 +14,6 @@ function toggle_btdongle
         set_bt_audio
     end
 
-    or notify-send 'toggle_btdongle failed'
+    or dunstify 'toggle_btdongle failed'
 
 end

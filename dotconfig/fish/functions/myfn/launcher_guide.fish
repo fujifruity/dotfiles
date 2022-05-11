@@ -1,5 +1,5 @@
 function launcher_guide
-    notify-send (\
+    dunstify (\
         cat ~/.config/i3/config |\
         string join0 |\
         string match -r '(?<="Launcher" {).*?(?=})' |\

@@ -131,7 +131,8 @@ nmap <leader>gll :Git pull<CR>
 " nmap <leader>gb  :Git blame<CR>
 nmap <leader>gd  :Git vdiff<CR>
 nmap <leader>gr  :Gremove<CR>
-nmap <leader>gp  :GitGutterPreviewHunk<CR>
+nmap <leader>h]  :GitGutterNextHunk<CR>
+nmap <leader>h[  :GitGutterPrevHunk<CR>
 
 "" Highlight
 nmap <Esc><Esc> :noh<CR>
