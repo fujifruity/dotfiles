@@ -1,0 +1,65 @@
+;; base layer:
+;;   caps -> syms-layer ('bspc' on tap)
+;;   lalt -> lalt ('Hiragana' on tap)
+;;   ralt -> ralt ('esc' on tap)
+;;   spc  -> lsft ('spc' on tap)
+;;   left -> rctl ('left' on tap)
+;;   esc  -> caps
+;; syms layer:
+;;   u -> C-pgup
+;;   i -> pgup
+;;   o -> pgdn
+;;   p -> C-pgdn
+;;   h -> left
+;;   j -> down
+;;   k -> uP
+;;   l -> rght
+;;   ; -> home
+;;   ' -> end
+;;   comma -> bspc
+;;   period -> del
+
+;; List of keycodes
+;; https://github.com/kmonad/kmonad/blob/master/src/KMonad/Keyboard/Keycode.hs
+
+
+(defcfg
+  input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+  output (uinput-sink "KMonad kbd"))
+
+(defalias
+  sym (tap-next bspc (layer-toggle syms))
+  cgu C-pgup
+  cgd C-pgdn
+  aes (tap-next esc ralt)
+  ahi (tap-next Hiragana lalt)
+  ssp (tap-next spc lsft)
+  cle (tap-next left rctl)
+  )
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  ins  prnt del
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+  lctl lmet lalt           spc            ralt rctl      left down rght
+)
+
+(deflayer base
+  caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  ins  prnt del
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @sym a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+  lctl lmet @ahi           @ssp           @aes rmet      @cle down rght
+)
+
+(deflayer syms
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    @cgu pgup pgdn @cgd _    _    _
+  _    _    _    _    _    _    left down up   rght home end  _  
+  _    _    _    _    _    _    _    _    bspc del  _    _    _ 
+  _    _    _              _              _    _         _    _    _
+)

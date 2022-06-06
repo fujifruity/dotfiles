@@ -192,12 +192,13 @@ hide_edge_borders smart
 focus_follows_mouse yes
 
 exec fish -c set_gradient_wallpaper
-# exec xsetroot -solid "#333333"  # single color wallpaper
-
-exec fish -c set_keybind 
 exec fish -c "is_laptop ; and auto_backlight"
 exec xautolock -time 7 -notify 10 -notifier "$notify zzz" -locker "systemctl suspend" -detectsleep -corners 000- 
-exec ibus-daemon --daemonize --replace
 exec dunst 
 exec systemctl --user start redshift
+
+## Input
+exec kmonad ~/.config/kmonad/config.kbd
+exec fish -c config_touchpad 
+exec ibus-daemon --daemonize --replace --xim  # non-gtk apps need '--xim' 
 
