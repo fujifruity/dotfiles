@@ -37,7 +37,7 @@ set $size 1360x768
 bindsym $mod+F8          exec xrandr --output $output2 --mode $size --same-as $output1
 bindsym $mod+Shift+F8    exec xrandr --output $output2 --off
 bindsym $mod+F7          exec fish -c "auto_backlight"
-bindsym $mod+F10         exec fish -c "vol mute"
+bindsym $mod+F10         exec fish -c "vol mute; statusline_update"
 bindsym $mod+F11         exec fish -c "vol down"
 bindsym $mod+F12         exec fish -c "vol up"
 bindsym $mod+p           exec fish -c "capture shot"
@@ -113,16 +113,16 @@ bindsym $mod+a focus parent
 bindsym $mod+o mode "Launcher" ; exec fish -c launcher_guide
 set $mozc       /usr/lib/mozc/mozc_tool --mode=config_dialog
 mode "Launcher" {
-    bindsym c       exec code                       ; mode "default"
-    bindsym f       exec firefox                    ; mode "default"
-    bindsym m       exec $mozc                      ; mode "default"
-    bindsym p       exec pavucontrol                ; mode "default"
-    bindsym t       exec thunar                     ; mode "default"
-    bindsym b       exec "fish -c toggle_btdongle"  ; mode "default"
-    bindsym k       exec "fish -c set_keybind"      ; mode "default"
-    bindsym $mod+o  exec "fish -c launcher_guide"
-    bindsym Escape  mode "default"
-    bindsym Return  mode "default"
+    bindsym c      exec code                      ; mode "default" ; exec dunstctl close
+    bindsym f      exec firefox                   ; mode "default" ; exec dunstctl close
+    bindsym m      exec $mozc                     ; mode "default" ; exec dunstctl close
+    bindsym p      exec pavucontrol               ; mode "default" ; exec dunstctl close
+    bindsym t      exec thunar                    ; mode "default" ; exec dunstctl close
+    bindsym b      exec "fish -c toggle_btdongle" ; mode "default" ; exec dunstctl close
+    bindsym k      exec "fish -c set_keybind"     ; mode "default" ; exec dunstctl close
+    bindsym $mod+o exec "fish -c launcher_guide"  ; exec dunstctl  close
+    bindsym Escape mode "default"                 ; exec dunstctl  close
+    bindsym Return mode "default"                 ; exec dunstctl  close
 }
 
 #

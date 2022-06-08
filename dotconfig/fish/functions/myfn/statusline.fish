@@ -1,10 +1,16 @@
 function statusline 
-    while true
+
+    # Use --on-variable because events cannot be used as IPC.
+    function on_update_event --on-variable statusline_update
+        print_msg
+    end
+
+    function print_msg
         set msg (date "+%a %b %d %H:%M") 
 
-        # show battery status if it exists
+        # Show battery status if it exists.
         if test -d '/sys/class/power_supply/BAT0/'
-			# looks like "64% / "
+			# Looks like "64% / "
             set -p msg ' '(acpi | awk -F ',' '{ print $2 }' | tr -d ' ')
         end
 
@@ -13,7 +19,12 @@ function statusline
         end
 
         string join ' / ' $msg
+    end
 
-        sleep 3
+    while true
+        print_msg
+        for n in (seq 30)
+            sleep 0.1
+        end
     end
 end
