@@ -3,7 +3,7 @@
 "*****************************************************************************
 call plug#begin('~/.vim/plugged')
 
-" git
+" Git
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'        " required by fugitive to :Gbrowse
@@ -22,27 +22,24 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'chiel92/vim-autoformat'   " code formatting
 Plug 'justinmk/vim-sneak'       " 2-char search with s
 Plug 'tpope/vim-surround'
-Plug '/usr/bin/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'  " ga<action>
+
+" Languages
+Plug 'kovisoft/slimv'
 
 call plug#end()
 
 "*****************************************************************************
-"" Basic Setup
+"" Behavior Settings
 "*****************************************************************************"
 
-"" Map leader to
-let mapleader = "\<Space>"
+"" Share clipboard with X11
+set clipboard=unnamedplus
 
 "" shell
 set shell=/usr/bin/fish
-
-"" Swapfile
-set noswapfile
-
-"" Encryption
-set cryptmethod=blowfish2
 
 "" Tabs
 set shiftwidth=4
@@ -55,23 +52,38 @@ set hidden
 "" Searching
 set hlsearch
 set incsearch
-" search case-sensitively if it contains capital
+"" Search case-sensitively if it contains capital.
 set ignorecase
 set smartcase
 let g:sneak#use_ic_scs = 1
 
-"" Mouse
-" set mouse=a
-
 "" Do not enter Ex-mode 
 :map Q <Nop>
+
+"" Swapfile
+set noswapfile
+
+"" Encryption
+set cryptmethod=blowfish2
+
+"" Map leader to
+let mapleader = "\<Space>"
+
+"" Sneak
+let g:sneak#s_next = 1
+
 
 "*****************************************************************************
 "" Visual Settings
 "*****************************************************************************
 
-"" Sneak
-let g:sneak#s_next = 1
+"" Show trailing whitespaces
+set list
+set listchars+=tab:>-,trail:◦,eol:\ 
+
+"" Put '> \' at the start of wrapped line
+set showbreak=>\ \ \
+
 "" Sometimes setting 'termguicolors' is not enough and one has to set the |t_8f| and |t_8b| options explicitly.
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -79,6 +91,7 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 "" Color
 colorscheme solarized8
+
 "" Background color based on tiem of day
 if 6 < strftime("%H") && strftime("%H") < 18
   set background=light
@@ -94,17 +107,18 @@ set scrolloff=3
 
 "" Always show status bar
 set laststatus=2
+
 "" Show branch name in status bar 
 set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 
-" Search mappings: These will make it so that going to the next one in a
-" search will center on the line it's found in.
-nmap n nzzzv
-nmap N Nzzzv
 
 "*****************************************************************************
 "" Mappings
 "*****************************************************************************
+
+"" Keep cursor centered
+nmap n nzzzv
+nmap N Nzzzv
 
 "" Replace selection with random hex
 function! Randdec(len)
