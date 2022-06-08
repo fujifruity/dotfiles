@@ -3,8 +3,8 @@
 ;;   lalt -> lalt ('Hiragana' on tap)
 ;;   ralt -> ralt ('esc' on tap)
 ;;   spc  -> lsft ('spc' on tap)
-;;   left -> rctl ('left' on tap)
 ;;   esc  -> caps
+;;   comp (menu) -> rmet
 ;; syms layer:
 ;;   u -> C-pgup
 ;;   i -> pgup
@@ -34,8 +34,8 @@
   aes (tap-next esc ralt)
   ahi (tap-next Hiragana lalt)
   ssp (tap-next spc lsft)
-  cle (tap-next left rctl)
-  )
+  mco (tap-next comp rmet)
+)
 
 (defsrc
   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  ins  prnt del
@@ -43,7 +43,7 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft up
-  lctl lmet lalt           spc            ralt rctl      left down rght
+  lctl lmet lalt           spc            ralt comp rctl left down rght
 )
 
 (deflayer base
@@ -52,14 +52,14 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @sym a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft up
-  lctl lmet @ahi           @ssp           @aes rmet      @cle down rght
+  lctl lmet @ahi           @ssp           @aes @mco rctl left down rght
 )
 
 (deflayer syms
   _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    @cgu pgup pgdn @cgd _    _    _
-  _    _    _    _    _    _    left down up   rght home end  _  
-  _    _    _    _    _    _    _    _    bspc del  _    _    _ 
-  _    _    _              _              _    _         _    _    _
+  _    _    _    _    _    _    left down up   rght home end  _   
+  _    _    _    _    _    _    _    _    bspc del  _    _    _   
+  _    _    _              _              _    _    _    _    _    _
 )
