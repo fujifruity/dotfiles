@@ -1,14 +1,6 @@
 function vol -a mode -d'Set audio volume. Argument: (mute|up|down)'
 
-    set -g volmsgid 123 
-
-    # for debug
-    function dump_sinks_sources
-        for v in sinks sink-inputs sources source-outputs
-            echo $v
-            pactl list short $v
-        end
-    end
+    set -g volmsgid 123
 
     function current_sink_volume
         pactl get-sink-volume (current_sink_id) | string match -r '\d+(?=%)'

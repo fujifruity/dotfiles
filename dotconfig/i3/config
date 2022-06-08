@@ -37,7 +37,8 @@ set $size 1360x768
 bindsym $mod+F8          exec xrandr --output $output2 --mode $size --same-as $output1
 bindsym $mod+Shift+F8    exec xrandr --output $output2 --off
 bindsym $mod+F7          exec fish -c "auto_backlight"
-bindsym $mod+F10         exec fish -c "vol mute; statusline_update"
+# bindsym $mod+F10         exec fish -c "vol mute"
+bindsym $mod+F10         exec fish -c "vol mute && statusline_update"
 bindsym $mod+F11         exec fish -c "vol down"
 bindsym $mod+F12         exec fish -c "vol up"
 bindsym $mod+p           exec fish -c "capture shot"
@@ -192,7 +193,7 @@ hide_edge_borders smart
 focus_follows_mouse yes
 
 exec fish -c set_gradient_wallpaper
-exec fish -c "is_laptop ; and auto_backlight"
+exec fish -c "is_laptop && and auto_backlight"
 exec xautolock -time 7 -notify 10 -notifier "$notify zzz" -locker "systemctl suspend" -detectsleep -corners 000- 
 exec dunst 
 exec systemctl --user start redshift
