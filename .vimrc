@@ -72,6 +72,10 @@ let g:sneak#use_ic_scs = 1
 
 "" Sneak
 let g:sneak#s_next = 1
+"" Sometimes setting 'termguicolors' is not enough and one has to set the |t_8f| and |t_8b| options explicitly.
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 "" Color
 colorscheme solarized8
