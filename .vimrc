@@ -39,7 +39,7 @@ call plug#end()
 set clipboard=unnamedplus
 
 "" shell
-set shell=/usr/bin/fish
+set shell=~/.guix-profile/bin/fish
 
 "" Tabs
 set shiftwidth=4
