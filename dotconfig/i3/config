@@ -170,7 +170,7 @@ bar {
     # i3bar_command /usr/bin/i3bar
     status_command fish -c statusline
     position bottom
-    font pango:Source Code Pro semibold 11
+    font pango:monospace bold 14
     colors {
         statusline $white
         background $gray0
@@ -186,7 +186,7 @@ bar {
 # assign [class="jetbrains-studio"] 2
 for_window [class="feh" instance="feh"] floating enable
 for_window [class="Thunar" instance="thunar"] floating enable
-font pango:Source Han Sans JP semibold 11
+font pango:monospace bold 14
 default_border pixel 2
 default_floating_border pixel 2
 hide_edge_borders smart
