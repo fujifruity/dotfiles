@@ -6,53 +6,74 @@
   "vim.hlsearch": true,
   "vim.insertModeKeyBindings": [
     {
-      "before": [ "j", "j" ],
-      "after": [ "<Esc>" ]
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-      "before": [ "p" ],
-      "after": [ "p", "g", "v", "y" ]
+      "before": [
+        "p"
+      ],
+      "after": [
+        "p",
+        "g",
+        "v",
+        "y"
+      ]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
     { // ESC to no highlight
-      "before": [ "<Esc>" ],
-      "commands": [ ":nohl" ]
+      "before": [
+        "<Esc>"
+      ],
+      "commands": [
+        ":nohl"
+      ]
     },
     {
-      "before": [ "u" ],
-      "commands": [ "undo" ]
+      "before": [
+        "u"
+      ],
+      "commands": [
+        "undo"
+      ]
     },
     {
-      "before": [ "<C-r>" ],
-      "commands": [ "redo" ]
+      "before": [
+        "<C-r>"
+      ],
+      "commands": [
+        "redo"
+      ]
     }
   ],
   "vim.handleKeys": {
     "<C-a>": false,
     "<C-f>": true
   },
-  "vim.easymotionMarkerFontSize": "17",
-  "vim.easymotionMarkerFontFamily": "Source Code Pro",
   "vim.easymotionMarkerFontWeight": "bold",
-  "vim.easymotionMarkerWidthPerChar": 11,
   "vim.easymotionMarkerBackgroundColor": "RoyalBlue",
-
   "keyboard.dispatch": "keyCode",
   "editor.minimap.enabled": false,
   "editor.fontFamily": "'source code pro', 'font awesome 5 free'",
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.formatOnSave": true,
   "diffEditor.renderSideBySide": false,
-  "breadcrumbs.enabled": false,
-
-  "search.usePCRE2": true,
-  "terminal.integrated.shell.linux": "/bin/fish",
   "terminal.integrated.rendererType": "dom",
-  "terminal.integrated.shell.windows": "bash",
-  "workbench.activityBar.visible": false,
-  "window.zoomLevel": 0,
-  "window.menuBarVisibility": "default",
+  "window.zoomLevel": 2,
+  "git.autofetch": true,
+  "explorer.confirmDelete": false,
+  "terminal.integrated.profiles.linux": {
+    "fish": {
+      "path": "/home/fuji/.guix-profile/bin/fish"
+    },
+  },
+  "terminal.integrated.defaultProfile.linux": "fish",
 }
