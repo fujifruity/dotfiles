@@ -1,10 +1,11 @@
 ;; This is an operating system configuration generated
 ;; by the graphical installer.
 
-(use-modules 
-  (gnu) 
+(use-modules
+  (gnu)
   (gnu packages haskell-apps) ; for kmonad
-  (nongnu system linux-initrd) 
+  (gnu system setuid)
+  (nongnu system linux-initrd)
   (nongnu packages linux))
 (use-service-modules
   cups
@@ -13,14 +14,18 @@
   ssh
   xorg
   nix)
-(use-package-modules package-management)
+(use-package-modules
+  wm
+  package-management)
 
 (define %my-desktop-services
-  (modify-services %desktop-services 
-    (udev-service-type config => 
-                       (udev-configuration 
-                         (inherit config) 
-                         (rules (cons kmonad (udev-configuration-rules config))))) ; for kmonad
+  (modify-services %desktop-services
+    (elogind-service-type config => (elogind-configuration
+                                      (inherit config)
+                                      (handle-lid-switch-external-power 'suspend))) ; suspend even when charging
+    (udev-service-type config => (udev-configuration
+                                   (inherit config)
+                                   (rules (cons kmonad (udev-configuration-rules config))))) ; for kmonad
     (delete gdm-service-type)))
 
 (operating-system
@@ -31,29 +36,41 @@
   (timezone "Asia/Tokyo")
   (keyboard-layout (keyboard-layout "us"))
   (host-name "guixpad")
-  (users (cons* (user-account
-                  (name "fuji")
-                  (comment "fuji")
-                  (group "users")
-                  (home-directory "/home/fuji")
-                  (supplementary-groups
-                    '("wheel" "netdev" "audio" "video"
-                      "input" ; for kmonad
-                      )))
-                %base-user-accounts))
+  (users
+    (cons* (user-account
+             (name "fuji")
+             (comment "fuji")
+             (group "users")
+             (home-directory "/home/fuji")
+             (supplementary-groups
+               '("wheel" "netdev" "audio" "video"
+                 "kvm" ; android-studio
+                 "input" ; for kmonad
+                 )))
+           %base-user-accounts))
   (packages
-    (append
-      (list (specification->package "i3-wm")
-            (specification->package "i3status")
-            (specification->package "dmenu")
-            (specification->package "st")
-            (specification->package "nss-certs"))
-      %base-packages))
+    (cons* (specification->package "sway")
+           (specification->package "swaybg")
+           (specification->package "swaylock")
+           (specification->package "swayidle")
+           (specification->package "i3-wm")
+           (specification->package "i3lock")
+           (specification->package "i3status")
+           (specification->package "nss-certs")
+           %base-packages))
   (services
-    (append
-      (list (service cups-service-type)
-            (service nix-service-type))
-      %my-desktop-services))
+    (cons* (service cups-service-type)
+           (screen-locker-service i3lock "i3lock")
+           (service nix-service-type)
+           %my-desktop-services))
+  ; (setuid-programs
+  ;   (cons* (file-like->setuid-program
+  ;            (file-append
+  ;              ; (specification->package "swaylock")
+  ;              ; "/run/setuid-programs/swaylock"))
+  ;              (specification->package "i3lock")
+  ;              "/run/setuid-programs/i3lock"))
+  ;          %setuid-programs))
   (bootloader
     (bootloader-configuration
       (bootloader grub-efi-bootloader)
@@ -76,3 +93,4 @@
                      'ext4))
              (type "ext4"))
            %base-file-systems)))
+

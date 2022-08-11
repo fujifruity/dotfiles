@@ -1,7 +1,11 @@
 function guixinstall -a query
+    test -n "$FZF_TMUX_HEIGHT" || set FZF_TMUX_HEIGHT 40%
+    set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS"
     set -l combined (guix search "$query" | string split0)
-    set -l split (string split \n\n $combined)
-    set -l names (echo $combined | grep -oP '(?<=^name: ).*' | fzf -m --height 70% --preview "guix show {}")
-    test -n "$name"
-    and guix install "$name"
+    set -l names (echo $combined \
+        | grep -oP '(name|version): .*' \
+        | sed -r 's/(name: |version: )//' \
+        | sed 'N;s/\n/@/' \
+        | fzf -m --preview "guix show {}")
+    test -n "$names" && guix install "$names"
 end

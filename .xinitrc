@@ -35,6 +35,6 @@ fi
 # export GTK_IM_MODULE=ibus
 # export QT_IM_MODULE=ibus
 # export XMODIFIERS=@im=ibus
-
-exec i3 
-# exec i3 -c /etc/i3/config 
+# xautolock -time 7 -notify 10 -notifier "$notify zzz" -locker "loginctl suspend" -detectsleep -corners 000- &
+exec i3
+# exec i3 -c /etc/i3/config
