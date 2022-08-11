@@ -1,74 +1,43 @@
 
-# Original: /etc/sway/config
+# Original: /etc/i3/config
 
 #
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
+# Logo key. Mod1=Alt, Mod4=Win.
 set $mod Mod4
 set $left h
 set $down j
 set $up k
 set $right l
-set $term alacritty -e tmux
-
-#
-### Output configuration (sway)
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-# output * mode 1366x768
-output HDMI-A-1 mode 1360x768
-output eDP-1 mode 1360x768
-# output * bg /tmp/todays_wallpaper fill
-output * bg /home/fuji/Dropbox/MinimalPure/Minimal-Pure-by-feridun-akgungor-Horiz/Rooftop.png fill
-
-#
-## Input configuration (sway)
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
-input type:keyboard {
-    repeat_delay 200
-    repeat_rate 30
-    xkb_file .keymap.xkb
-}
-input type:touchpad {
-    tap enabled
-    natural_scroll enabled
-    dwt enabled # disable-while-typing
-    pointer_accel 0.4
-}
+set $term ~/.guix-profile/bin/alacritty
+set $menu "dmenu_run -fn 'Source Code Pro 11' -sb '#333333' -nf '#aaaaff' -sf '#aaffaa' "
+set $notify ~/.guix-profile/bin/dunstify
 
 #
 ### Key bindings
 #
-bindsym $mod+minus     splitv ; exec $term
-bindsym $mod+backslash splith ; exec $term
-bindsym $mod+Return    exec    $term
-bindsym $mod+Shift+q   kill
-bindsym $mod+Shift+c   reload
-bindsym $mod+Shift+e   exit
-
-# Note: it's recommended that you pass the final command to sway
-set $menu "bemenu-run --fn 'Source Code Pro 11' --tf '#aaaaaa' --ff '#aaffaa' --nf '#aaaaff' --hf '#ffaaaa' --sf '#ffffaa' --scf '#ffaaff'"
-# set $menu dmenu_path | dmenu | xargs swaymsg exec --
-bindsym $mod+i                exec fish        -c 'swayidle_pause'
-bindsym $mod+d                exec makoctl     dismiss
-bindsym $mod+F2               exec $menu
-bindsym XF86MonBrightnessDown exec fish        -c 'backlight down'
-bindsym XF86MonBrightnessUp   exec fish        -c 'backlight up'
-bindsym XF86ScreenSaver       exec fish        -c 'auto_backlight'
-bindsym XF86TouchpadToggle    exec fish        -c 'pul toggle'
-bindsym XF86AudioMute         exec fish        -c 'vol mute'
-bindsym XF86AudioLowerVolume  exec fish        -c 'vol down'
-bindsym XF86AudioRaiseVolume  exec fish        -c 'vol up'
-bindsym $mod+F11              exec fish        -c 'vol down'
-bindsym $mod+F12              exec fish        -c 'vol up'
-bindsym Print                 exec fish        -c 'capture shot'
-bindsym Print+Shift           exec fish        -c 'capture shot --selection'
-bindsym Print+Mod1            exec fish        -c 'capture record'
-bindsym Print+Mod1+Shift      exec fish        -c 'capture record --selection'
-bindsym Menu                  exec notify-send 'Menu'
+bindsym $mod+f          fullscreen toggle
+bindsym $mod+minus      splitv ; exec $term -e fish
+bindsym $mod+slash      splith ; exec $term -e fish
+bindsym $mod+Return     exec $term -e tmux -u
+bindsym $mod+Shift+q    kill
+bindsym $mod+Shift+r    restart
+bindsym $mod+Shift+c    reload
+bindsym $mod+Shift+e    exit
+bindsym $mod+F2         exec $menu
+bindsym $mod+F5         exec fish -c "backlight down"
+bindsym $mod+F6         exec fish -c "backlight up"
+bindsym $mod+d          exec dunstctl close
+bindsym $mod+Shift+d    exec dunstctl history-pop
+bindsym $mod+F7         exec fish -c "auto_backlight"
+bindsym $mod+F10        exec fish -c "vol mute && statusline_update"
+bindsym $mod+F11        exec fish -c "vol down"
+bindsym $mod+F12        exec fish -c "vol up"
+bindsym $mod+p          exec fish -c "capture shot"
+bindsym $mod+Alt+p      exec fish -c "capture record"
+bindsym --release $mod+Shift+p     exec fish -c "capture shot --selection"
+bindsym --release $mod+Alt+Shift+p exec fish -c "capture record --selection"
 
 # Move focus
 bindsym $mod+$left  focus left
@@ -80,29 +49,37 @@ bindsym $mod+Shift+$left  move left
 bindsym $mod+Shift+$down  move down
 bindsym $mod+Shift+$up    move up
 bindsym $mod+Shift+$right move right
+# Define workspace name
+set $ws1 " 1 "
+set $ws2 " 2 "
+set $ws3 " 3 "
+set $ws4 " 4 "
+set $ws5 " 5 "
+set $ws6 " 6 "
+set $ws7 " 7 "
+set $ws8 " 8 "
+set $ws9 " 9 "
 # Switch workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1  workspace $ws1
+bindsym $mod+2  workspace $ws2
+bindsym $mod+3  workspace $ws3
+bindsym $mod+4  workspace $ws4
+bindsym $mod+5  workspace $ws5
+bindsym $mod+6  workspace $ws6
+bindsym $mod+7  workspace $ws7
+bindsym $mod+8  workspace $ws8
+bindsym $mod+9  workspace $ws9
 # bindsym $mod+Tab       workspace next_on_output
 # bindsym $mod+Shift+Tab workspace prev_on_output
-bindsym $mod+Shift+1    move container to workspace 1 ; workspace 1
-bindsym $mod+Shift+2    move container to workspace 2 ; workspace 2
-bindsym $mod+Shift+3    move container to workspace 3 ; workspace 3
-bindsym $mod+Shift+4    move container to workspace 4 ; workspace 4
-bindsym $mod+Shift+5    move container to workspace 5 ; workspace 5
-bindsym $mod+Shift+6    move container to workspace 6 ; workspace 6
-bindsym $mod+Shift+7    move container to workspace 7 ; workspace 7
-bindsym $mod+Shift+8    move container to workspace 8 ; workspace 8
-bindsym $mod+Shift+9    move container to workspace 9 ; workspace 9
-bindsym $mod+Shift+0    move container to workspace 10 ; workspace 10
+bindsym $mod+Shift+1  move container to workspace $ws1 ; workspace $ws1
+bindsym $mod+Shift+2  move container to workspace $ws2 ; workspace $ws2
+bindsym $mod+Shift+3  move container to workspace $ws3 ; workspace $ws3
+bindsym $mod+Shift+4  move container to workspace $ws4 ; workspace $ws4
+bindsym $mod+Shift+5  move container to workspace $ws5 ; workspace $ws5
+bindsym $mod+Shift+6  move container to workspace $ws6 ; workspace $ws6
+bindsym $mod+Shift+7  move container to workspace $ws7 ; workspace $ws7
+bindsym $mod+Shift+8  move container to workspace $ws8 ; workspace $ws8
+bindsym $mod+Shift+9  move container to workspace $ws9 ; workspace $ws9
 # bindsym $mod+braceright move container to workspace next_on_output ; workspace next_on_output
 # bindsym $mod+braceleft  move container to workspace prev_on_output ; workspace prev_on_output
 
@@ -110,45 +87,43 @@ bindsym $mod+Shift+0    move container to workspace 10 ; workspace 10
 workspace_auto_back_and_forth yes
 
 ## Layout
-bindsym $mod+s splitt
-# bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+t layout toggle tabbed split  
+bindsym $mod+s layout toggle split
 
 ## Floating window
-## mouse button for dragging.
-floating_modifier $mod normal # <-- for sway
-# floating_modifier $mod # <-- for i3
+# floating_modifier $mod normal # <-- for sway
+floating_modifier $mod 
 ## Toggle the current focus between tiling and floating mode
-bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+space floating toggle
 ## Swap focus between the tiling area and the floating area
-bindsym $mod+f focus mode_toggle
+bindsym $mod+space focus mode_toggle
 ## move focus to the parent container
 bindsym $mod+a focus parent
 
 #
-## Scratch pad
+### App launcher
 #
-bindsym $mod+Shift+Escape move scratchpad
-bindsym $mod+Escape scratchpad show
+set $mozc  ~/.nix-profile/lib/mozc/mozc_tool --mode=config_dialog
+bindsym $mod+o mode "Launcher" ; exec fish -c launcher_guide
+mode "Launcher" {
+    bindsym c      exec code                      ; mode "default" ; exec dunstctl close
+    bindsym f      exec firefox                   ; mode "default" ; exec dunstctl close
+    bindsym m      exec $mozc                     ; mode "default" ; exec dunstctl close
+    bindsym p      exec pavucontrol               ; mode "default" ; exec dunstctl close
+    bindsym t      exec thunar                    ; mode "default" ; exec dunstctl close
+    bindsym b      exec "fish -c toggle_btdongle" ; mode "default" ; exec dunstctl close
+    bindsym k      exec "fish -c set_keybind"     ; mode "default" ; exec dunstctl close
+    bindsym $mod+o exec "fish -c launcher_guide"  ; exec dunstctl  close
+    bindsym Escape mode "default"                 ; exec dunstctl  close
+    bindsym Return mode "default"                 ; exec dunstctl  close
+}
 
 #
-## App launcher
+# Passthrough mode
 #
-bindsym $mod+o mode "Launcher" ; exec fish -c launcher_guide
-set $mozc    /usr/lib/mozc/mozc_tool --mode=config_dialog
-mode "Launcher" {
-    bindsym f exec firefox             ; mode "default"
-    bindsym t exec thunar              ; mode "default"
-    bindsym v exec 'alacritty -e vim'  ; mode "default"
-    bindsym h exec 'alacritty -e htop' ; mode "default"
-    bindsym i exec ibus-setup          ; mode "default"
-    bindsym m exec $mozc               ; mode "default"
-    bindsym p exec pavucontrol         ; mode "default"
-    bindsym c exec code                ; mode "default"
-    bindsym $mod+o exec fish -c 'launcher_guide'
-    bindsym Escape mode "default"
-    bindsym Return mode "default"
+bindsym $mod+z mode "Passthrough" ; fullscreen enable
+mode "Passthrough" {
+    bindsym $mod+z mode "default" ; fullscreen disable 
 }
 
 #
@@ -163,56 +138,31 @@ mode "Resize" {
     ## return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
-}
-
-#
-# Passthrough mode
-#
-bindsym $mod+z mode "Passthrough" ; fullscreen toggle
-mode "Passthrough" {
-    bindsym $mod+z mode "default" ; fullscreen toggle
-}
-
-#
-# Cursor mode (sway)
-#
-set $hide_cursor seat * hide_cursor 7000
-$hide_cursor
-bindsym $mod+c mode "Cursor" ; seat * hide_cursor 0
-mode "Cursor" {
-    bindsym Escape mode "default" ; $hide_cursor
-    bindsym Return mode "default" ; $hide_cursor
-    bindsym      i seat - cursor move   0 -10
-    bindsym      o seat - cursor move   7  -7
-    bindsym      l seat - cursor move  10   0
-    bindsym period seat - cursor move   7   7
-    bindsym  comma seat - cursor move   0  10
-    bindsym      m seat - cursor move  -7   7
-    bindsym      j seat - cursor move -10   0
-    bindsym      u seat - cursor move  -7  -7
-    bindsym k      seat - cursor press button1 seat ; seat - cursor release button1 ; exec notify-send click
+    # disable scroll
+    bindsym button4 nop
+    bindsym button5 nop
 }
 
 #
 ## Set colors
 #
 set $white  #ffffff
-set $gray2  #888888
+set $gray2  #cccccc
 set $gray1  #444444
 set $gray0  #222222
 set $red    #0288d1
-##class          border backgr text   indicator child_border
-client.focused   $gray1 $gray1 $white $red      $gray1
-client.unfocused $gray0 $gray0 $gray2 $red      $gray0
+##class                 border backgr text   indicator child_border
+client.focused          $gray1 $gray1 $white $red      $gray2
+client.focused_inactive $gray1 $gray1 $white $red      $gray1
+client.unfocused        $gray0 $gray0 $gray2 $red      $gray0
 
-#
-## Status bar
-#
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
 bar {
-    position top
-    font pango:Source Code Pro semibold 10
-    ## When the status_command prints a new line to stdout, swaybar updates.
-    status_command while date +'%Y-%m-%d %H:%M'; do sleep 1; done
+    # i3bar_command /usr/bin/i3bar
+    status_command fish -c statusline
+    position bottom
+    font pango:monospace bold 14
     colors {
         statusline $white
         background $gray0
@@ -223,21 +173,42 @@ bar {
 }
 
 #
+## Input configuration (sway)
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+input type:keyboard {
+    repeat_delay 170
+    repeat_rate 20
+}
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+    dwt enabled # disable-while-typing
+    pointer_accel 0.5
+}
+
+#
 # Other
 #
-assign [class="jetbrains-studio"] 2
-# assign [title="^.* Android Studio$"] 2
-font pango:Source Han Sans JP semibold 10
-default_border pixel 1
-exec ibus-daemon --daemonize --replace
+# assign [class="jetbrains-studio"] 2
+for_window [class="feh" instance="feh"] floating enable
+for_window [class="Thunar" instance="thunar"] floating enable
+for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
+font pango:monospace bold 14
+default_border pixel 2
+default_floating_border pixel 2
+hide_edge_borders smart
+focus_follows_mouse yes
 
-## sway
-exec mako
-exec redshift -l 40:140 -t 6000K:3500K
-exec fish -c 'swayidle_compatible' 
-exec fish -c 'is_laptop ; and auto_backlight'
-# xwayland disable
-# gaps inner 7
-# smart_gaps on
-smart_borders on
+exec fish -c set_gradient_wallpaper
+exec dunst
+exec brightnessctl set 20%
+exec swayidle -w \
+    timeout 420 'swaylock -f' \
+    before-sleep 'swaylock'
+    # timeout 15 'swaymsg "output * dpms off"' \
+    # resume 'swaymsg "output * dpms on"'
 
+## Input
+exec ibus-daemon --daemonize --replace --xim  # non-gtk apps need '--xim'

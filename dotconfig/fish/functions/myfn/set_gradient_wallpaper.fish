@@ -1,6 +1,7 @@
 function set_gradient_wallpaper
     set file /tmp/gradient.png
     gradient $file
+    # swaybg -i $file
     feh --bg-scale $file
 end
 
@@ -16,7 +17,8 @@ function gradient -a file -d 'Generates a gradient picture'
 
     convert -size 100x56 \
         gradient:"$colors[$a]-$colors[$b]" \
-        -append -blur 0x1 $file
+        -append -blur 0x1 \
+        -resize (get_display_size) $file
 
 end
 

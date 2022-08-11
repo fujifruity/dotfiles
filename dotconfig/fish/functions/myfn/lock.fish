@@ -1,7 +1,7 @@
 function lock
 
     logger lock
-    set img '/tmp/lock.png'
+    set img '/tmp/blurred.png'
     # Take a screenshot for our background
     scrot --overwrite $img
     # Pixelate the background

@@ -19,6 +19,7 @@ function _notify_command_return --on-event fish_prompt
     and dunstify "$history[1]" (date -d@$sec -u +%M:%S)
 end
 
+set -gx SHELL "fish"
 set -gx LESSOPEN "| cat %s"
 set -gx LESS " -FRXi"
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/fuji/.ghcup/bin $PATH # ghcup-env

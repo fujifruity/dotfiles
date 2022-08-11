@@ -25,27 +25,19 @@ bindsym $mod+Shift+q    kill
 bindsym $mod+Shift+r    restart
 bindsym $mod+Shift+c    reload
 bindsym $mod+Shift+e    exit
+bindsym $mod+d          exec dunstctl close
+bindsym $mod+Shift+d    exec dunstctl history-pop
 bindsym $mod+F2         exec $menu
 bindsym $mod+F5         exec fish -c "backlight down"
 bindsym $mod+F6         exec fish -c "backlight up"
-bindsym $mod+d          exec dunstctl close
-bindsym $mod+Shift+d    exec dunstctl history-pop
-set $output1 eDP-1
-set $output2 HDMI-1
-set $size 1360x768
-# bindsym $mod+F8         exec    xrandr --output $output2 --mode $size --right-of $output1
-bindsym $mod+F8          exec xrandr --output $output2 --mode $size --same-as $output1
-bindsym $mod+Shift+F8    exec xrandr --output $output2 --off
-bindsym $mod+F7          exec fish -c "auto_backlight"
-# bindsym $mod+F10         exec fish -c "vol mute"
-bindsym $mod+F10         exec fish -c "vol mute && statusline_update"
+# bindsym $mod+F7          exec fish -c "auto_backlight"
+bindsym $mod+F7          exec fish -c "screenshot"
+bindsym $mod+F8          exec fish -c "screenrecord"
+bindsym --release $mod+Shift+F7    exec fish -c "screenshot --selection"
+bindsym --release $mod+Shift+F8    exec fish -c "screenrecord --selection"
+bindsym $mod+F10         exec fish -c "vol mute && statusline --update"
 bindsym $mod+F11         exec fish -c "vol down"
 bindsym $mod+F12         exec fish -c "vol up"
-bindsym $mod+p           exec fish -c "capture shot"
-bindsym $mod+Alt+p       exec fish -c "capture record"
-bindsym --release $mod+Shift+p     exec fish -c "capture shot --selection"
-bindsym --release $mod+Alt+Shift+p exec fish -c "capture record --selection"
-# bindsym Menu            exec notify-send "Menu"
 
 # Move focus
 bindsym $mod+$left  focus left
@@ -111,9 +103,11 @@ bindsym $mod+a focus parent
 #
 ### App launcher
 #
-set $mozc  ~/.nix-profile/lib/mozc/mozc_tool --mode=config_dialog
+set $mozc  "~/.nix-profile/lib/mozc/mozc_tool --mode=config_dialog"
+set $studio  "flatpak run com.google.AndroidStudio"
 bindsym $mod+o mode "Launcher" ; exec fish -c launcher_guide
 mode "Launcher" {
+    bindsym a      exec $studio                   ; mode "default" ; exec dunstctl close
     bindsym c      exec code                      ; mode "default" ; exec dunstctl close
     bindsym f      exec firefox                   ; mode "default" ; exec dunstctl close
     bindsym m      exec $mozc                     ; mode "default" ; exec dunstctl close
@@ -186,6 +180,7 @@ bar {
 # assign [class="jetbrains-studio"] 2
 for_window [class="feh" instance="feh"] floating enable
 for_window [class="Thunar" instance="thunar"] floating enable
+for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
 font pango:monospace bold 14
 default_border pixel 2
 default_floating_border pixel 2
@@ -193,12 +188,12 @@ hide_edge_borders smart
 focus_follows_mouse yes
 
 exec fish -c set_gradient_wallpaper
-exec fish -c "is_laptop && and auto_backlight"
-exec xautolock -time 7 -notify 10 -notifier "$notify zzz" -locker "systemctl suspend" -detectsleep -corners 000-
 exec dunst
+exec brightnessctl set 20%
+exec xautolock -time 7 -notify 10 -notifier "$notify zzz" -locker "fish -c lock" -detectsleep -corners 000-
 
 ## Input
 exec kmonad ~/.config/kmonad/config.kbd
 exec fish -c config_touchpad
 exec ibus-daemon --daemonize --replace --xim  # non-gtk apps need '--xim'
-
+exec xset r rate 170 20
