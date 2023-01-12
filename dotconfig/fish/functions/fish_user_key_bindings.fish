@@ -12,6 +12,12 @@ vim
     <Leader>hs stage the hunk
     <Leader>hu undo the hunk"
 
+    # Enable fzf
+    if command -s fzf-share >/dev/null
+      source (fzf-share)/key-bindings.fish
+    end
+    fzf_key_bindings
+
     function gen-fzf-cd-widget
         set -l cmd $argv[1]
         test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%

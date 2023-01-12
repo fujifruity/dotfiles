@@ -8,9 +8,6 @@ set fish_function_path ~/.config/fish/functions/myfn $fish_function_path
 ## Unset an out-of-date variable tmux set
 set -e I3SOCK
 
-## Activate FZF keybindings
-fzf_key_bindings
-
 ## Notify if finished command took time
 function _notify_command_return --on-event fish_prompt
     test $CMD_DURATION > /dev/null

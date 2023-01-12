@@ -17,12 +17,12 @@ function statusline -d '-u to update'
 
         # Show battery status if it exists.
         if test -d '/sys/class/power_supply/BAT0/'
-            set -l batt (acpi | awk -F ',' '{ print $2 }' | tr -d ' ')
-            set -p msg ' '$batt
+            set -l batt (acpi | awk -F ',' '{ print $2 }' | tr -d ' %')
+            set -p msg ''$batt
         end
 
         is_mute && set -p msg ' mute'
-        string join ' / ' $msg
+        string join ' . ' $msg
     end
 
     # Start loop

@@ -1,5 +1,5 @@
 function set_gradient_wallpaper
-    set file /tmp/gradient.png
+    set file /tmp/wallpaper.png
     gradient $file
     # swaybg -i $file
     feh --bg-scale $file

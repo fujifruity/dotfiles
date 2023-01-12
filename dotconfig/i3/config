@@ -10,14 +10,14 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term ~/.guix-profile/bin/alacritty
+set $term ~/.nix-profile/bin/alacritty
 set $menu "dmenu_run -fn 'Source Code Pro 11' -sb '#333333' -nf '#aaaaff' -sf '#aaffaa' "
-set $notify ~/.guix-profile/bin/dunstify
+set $notify ~/.nix-profile/bin/dunstify
 
 #
 ### Key bindings
 #
-bindsym $mod+f        fullscreen toggle
+bindsym $mod+f          fullscreen toggle
 bindsym $mod+minus      splitv ; exec $term -e fish
 bindsym $mod+slash      splith ; exec $term -e fish
 bindsym $mod+Return     exec $term -e tmux -u
@@ -60,17 +60,16 @@ set $ws7 " 7 "
 set $ws8 " 8 "
 set $ws9 " 9 "
 # Switch workspace
-bindsym $mod+1  workspace $ws1
-bindsym $mod+2  workspace $ws2
-bindsym $mod+3  workspace $ws3
-bindsym $mod+4  workspace $ws4
-bindsym $mod+5  workspace $ws5
-bindsym $mod+6  workspace $ws6
-bindsym $mod+7  workspace $ws7
-bindsym $mod+8  workspace $ws8
-bindsym $mod+9  workspace $ws9
-# bindsym $mod+Tab       workspace next_on_output
-# bindsym $mod+Shift+Tab workspace prev_on_output
+bindsym $mod+1    workspace $ws1
+bindsym $mod+2    workspace $ws2
+bindsym $mod+3    workspace $ws3
+bindsym $mod+4    workspace $ws4
+bindsym $mod+5    workspace $ws5
+bindsym $mod+6    workspace $ws6
+bindsym $mod+7    workspace $ws7
+bindsym $mod+8    workspace $ws8
+bindsym $mod+9    workspace $ws9
+bindsym $mod+Tab  workspace back_and_forth
 bindsym $mod+Shift+1  move container to workspace $ws1 ; workspace $ws1
 bindsym $mod+Shift+2  move container to workspace $ws2 ; workspace $ws2
 bindsym $mod+Shift+3  move container to workspace $ws3 ; workspace $ws3
@@ -103,17 +102,16 @@ bindsym $mod+a focus parent
 #
 ### App launcher
 #
-set $mozc  "~/.nix-profile/lib/mozc/mozc_tool --mode=config_dialog"
-set $studio  "flatpak run com.google.AndroidStudio"
+set $mozc  "/run/current-system/sw/lib/mozc/mozc_tool --mode=config_dialog"
 bindsym $mod+o mode "Launcher" ; exec fish -c launcher_guide
 mode "Launcher" {
-    bindsym a      exec $studio                   ; mode "default" ; exec dunstctl close
+    bindsym a      exec android-studio            ; mode "default" ; exec dunstctl close
     bindsym c      exec code                      ; mode "default" ; exec dunstctl close
     bindsym f      exec firefox                   ; mode "default" ; exec dunstctl close
     bindsym m      exec $mozc                     ; mode "default" ; exec dunstctl close
     bindsym p      exec pavucontrol               ; mode "default" ; exec dunstctl close
     bindsym t      exec thunar                    ; mode "default" ; exec dunstctl close
-    bindsym b      exec "fish -c toggle_btdongle" ; mode "default" ; exec dunstctl close
+    bindsym b      exec "fish -c toggle_btdevice" ; mode "default" ; exec dunstctl close
     bindsym k      exec "fish -c set_keybind"     ; mode "default" ; exec dunstctl close
     bindsym $mod+o exec "fish -c launcher_guide"  ; exec dunstctl  close
     bindsym Escape mode "default"                 ; exec dunstctl  close
@@ -164,7 +162,7 @@ bar {
     # i3bar_command /usr/bin/i3bar
     status_command fish -c statusline
     position bottom
-    font pango:monospace bold 14
+    font pango:monospace bold 13
     colors {
         statusline $white
         background $gray0
@@ -181,7 +179,7 @@ bar {
 for_window [class="feh" instance="feh"] floating enable
 for_window [class="Thunar" instance="thunar"] floating enable
 for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
-font pango:monospace bold 14
+font pango:monospace bold 13
 default_border pixel 2
 default_floating_border pixel 2
 hide_edge_borders smart
@@ -190,10 +188,9 @@ focus_follows_mouse yes
 exec fish -c set_gradient_wallpaper
 exec dunst
 exec brightnessctl set 20%
-exec xautolock -time 7 -notify 10 -notifier "$notify zzz" -locker "fish -c lock" -detectsleep -corners 000-
+exec xautolock -time 10 -notify 10 -notifier "$notify zzz" -locker "i3lock -i /tmp/wallpaper.png" -detectsleep -corners 000-
 
 ## Input
-exec kmonad ~/.config/kmonad/config.kbd
 exec fish -c config_touchpad
-exec ibus-daemon --daemonize --replace --xim  # non-gtk apps need '--xim'
+exec ibus-daemon --daemonize --replace --xim --restart # terminal emulators need '--xim'
 exec xset r rate 170 20

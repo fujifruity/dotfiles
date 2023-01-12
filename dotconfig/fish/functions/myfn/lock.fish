@@ -1,12 +1,12 @@
 function lock
 
     logger lock
-    set img '/tmp/blurred.png'
+    set img '/tmp/lock.fish.blurred.png'
     # Take a screenshot for our background
-    scrot --overwrite $img
+    import -window root $img
     # Pixelate the background
     convert $img -scale 10% -scale 1000% $img
     # Lock screen
-    i3lock --image $img
+    i3lock --image $img #& sleep 5 && xset dpms force of
 
 end

@@ -1,114 +1,46 @@
 "*****************************************************************************
-"" Plug install packages
-"*****************************************************************************
-call plug#begin('~/.vim/plugged')
-
-" Git
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'        " required by fugitive to :Gbrowse
-Plug 'airblade/vim-gitgutter'
-Plug 'aymericbeaumet/vim-symlink' " follow symlink (fugitive works only in git repo)
-Plug 'moll/vim-bbye'            " optional dependency of vim-symlink
-
-""Beauty
-Plug 'w0rp/ale'                 " linter
-Plug 'Yggdroot/indentLine'
-Plug 'sheerun/vim-polyglot'     " syntax highlighting
-Plug 'Raimondi/delimitMate'     " automatic closing of surroundings
-Plug 'lifepillar/vim-solarized8'
-
-" Finger friendliness
-Plug 'chiel92/vim-autoformat'   " code formatting
-Plug 'justinmk/vim-sneak'       " 2-char search with s
-Plug 'tpope/vim-surround'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-easy-align'  " ga<action>
-
-" Languages
-Plug 'kovisoft/slimv'
-
-call plug#end()
-
-"*****************************************************************************
 "" Behavior Settings
 "*****************************************************************************"
-
-"" Share clipboard with X11
-set clipboard=unnamedplus
-
-"" shell
-set shell=~/.guix-profile/bin/fish
-
-"" Tabs
-set shiftwidth=4
-set tabstop=4
-set expandtab
-
-"" Edit new file without saving current buffer
-set hidden
-
-"" Searching
-set hlsearch
-set incsearch
-"" Search case-sensitively if it contains capital.
-set ignorecase
-set smartcase
-let g:sneak#use_ic_scs = 1
-
-"" Do not enter Ex-mode 
-:map Q <Nop>
-
-"" Swapfile
-set noswapfile
-
-"" Encryption
-set cryptmethod=blowfish2
-
-"" Map leader to
 let mapleader = "\<Space>"
 
-"" Sneak
-let g:sneak#s_next = 1
+set hlsearch
+set ignorecase  "" Search case-sensitively
+set smartcase   "" ... unless it contains capital.
 
+let g:sneak#use_ic_scs = 1  "" Case insensitive sneak
+let g:sneak#s_next = 1  "" Type ; to go to the next match (or s again)
+
+set shell=fish
+set mouse=a
+set clipboard=unnamedplus  "" Share clipboard with X11
+set hidden  "" Edit new file without saving current buffer
+set cryptmethod=blowfish2
+
+set backupdir=~/.cache/vim/backup//
+set directory=~/.cache/vim/swap//
+set undodir=~/.cache/vim/undo//
+
+"" Do not enter Ex-mode
+map Q <Nop>
 
 "*****************************************************************************
 "" Visual Settings
 "*****************************************************************************
+colorscheme gruvbox
+set background=dark
 
 "" Show trailing whitespaces
 set list
-set listchars+=tab:>-,trail:◦,eol:\ 
+set listchars=tab:>-,trail:-,eol:\ ,extends:>,precedes:<,nbsp:%
+
+" set shiftwidth=4
+" set tabstop=4
+" set expandtab
 
 "" Put '> \' at the start of wrapped line
 set showbreak=>\ \ \
 
-"" Sometimes setting 'termguicolors' is not enough and one has to set the |t_8f| and |t_8b| options explicitly.
-set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
-"" Color
-colorscheme solarized8
-
-"" Background color based on tiem of day
-if 6 < strftime("%H") && strftime("%H") < 18
-  set background=light
-else
-  set background=dark
-endif
-
-"" Line number
-set number
-
-"" Minimal number of screen lines to keep above and below the cursor.
-set scrolloff=3
-
-"" Always show status bar
-set laststatus=2
-
-"" Show branch name in status bar 
+"" Show branch name in status bar
 set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 
 
@@ -120,19 +52,6 @@ set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 nmap n nzzzv
 nmap N Nzzzv
 
-"" Replace selection with random hex
-function! Randdec(len)
-    let seed = srand()
-    return range(a:len)->map({-> rand(seed) % 10})->map({_,n->printf('%d', n)})->join('')
-endfunction
-function! Randhex(len)
-    let seed = srand()
-    return range(a:len)->map({-> rand(seed) % 16})->map({_,n->printf('%x', n)})->join('')
-endfunction
-vmap <leader>rd c<C-R>=Randdec(len(@*))<CR><Esc>
-vmap <leader>rh c<C-R>=Randhex(len(@*))<CR><Esc>
-
-"" Align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
@@ -147,7 +66,6 @@ nmap <leader>gc  :Git commit<CR>
 nmap <leader>gsh :Git push<CR>
 nmap <leader>gll :Git pull<CR>
 " nmap <leader>gb  :Git blame<CR>
-nmap <leader>gd  :Git vdiff<CR>
 nmap <leader>gr  :Gremove<CR>
 nmap <leader>h]  :GitGutterNextHunk<CR>
 nmap <leader>h[  :GitGutterPrevHunk<CR>
@@ -169,7 +87,7 @@ nmap <silent> <F4> :Vexplore<CR>
 "" Set working directory
 nmap <leader>. :cd %:h<CR>
 
-"" Open an edit command with the path of the currently edited file filled in
+"" Open an edit command with the path of the current file filled in
 nmap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 "" Search for visually selected text

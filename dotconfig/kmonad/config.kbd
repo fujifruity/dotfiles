@@ -20,6 +20,8 @@
 ;;   ' -> end
 ;;   comma -> bspc
 ;;   period -> del
+;;   [ -> A-left
+;;   ] -> A-right
 
 ;; List of keycodes
 ;; https://github.com/kmonad/kmonad/blob/master/src/KMonad/Keyboard/Keycode.hs
@@ -30,14 +32,15 @@
   output (uinput-sink "KMonad kbd"))
 
 (defalias
-  sym (tap-next bspc (layer-toggle syms))
+  sym (tap-next A-left (layer-toggle syms))
   cgu C-pgup
   cgd C-pgdn
+  lec C-left
+  ric C-rght
   aes (tap-next esc ralt)
   ahi (tap-next Hiragana lalt)
   ssp (tap-next spc lsft)
   cle (tap-next left rctl)
-  sss S-spc
   mme (tap-next comp rmet)
 )
 
@@ -52,17 +55,17 @@
 
 (deflayer base
   caps f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  ins  prnt del
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    S-spc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]     \
   @sym a    s    d    f    g    h    j    k    l    ;    '    ret
-  del  z    x    c    v    b    n    m    ,    .    /    @sss up
+  bspc z    x    c    v    b    n    m    ,    .    /    del  up
   lctl lmet @ahi           @ssp           @aes @mme      @cle down rght
 )
 
 (deflayer syms
   _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    @cgu pgup pgdn @cgd _    _    _
+  _    _    _    _    _    _    _    @cgu pgup pgdn @cgd @lec @ric _
   _    _    _    _    _    _    left down up   rght home end  _
   _    _    _    _    _    _    _    _    bspc del  _    _    _
   _    _    _              _              _    _         _    _    _

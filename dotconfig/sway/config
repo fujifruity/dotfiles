@@ -10,9 +10,9 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term ~/.guix-profile/bin/alacritty
+set $term ~/.nix-profile/bin/alacritty
 set $menu "dmenu_run -fn 'Source Code Pro 11' -sb '#333333' -nf '#aaaaff' -sf '#aaffaa' "
-set $notify ~/.guix-profile/bin/dunstify
+set $notify ~/.nix-profile/bin/dunstify
 
 #
 ### Key bindings
@@ -25,19 +25,19 @@ bindsym $mod+Shift+q    kill
 bindsym $mod+Shift+r    restart
 bindsym $mod+Shift+c    reload
 bindsym $mod+Shift+e    exit
+bindsym $mod+d          exec dunstctl close
+bindsym $mod+Shift+d    exec dunstctl history-pop
 bindsym $mod+F2         exec $menu
 bindsym $mod+F5         exec fish -c "backlight down"
 bindsym $mod+F6         exec fish -c "backlight up"
-bindsym $mod+d          exec dunstctl close
-bindsym $mod+Shift+d    exec dunstctl history-pop
-bindsym $mod+F7         exec fish -c "auto_backlight"
-bindsym $mod+F10        exec fish -c "vol mute && statusline_update"
-bindsym $mod+F11        exec fish -c "vol down"
-bindsym $mod+F12        exec fish -c "vol up"
-bindsym $mod+p          exec fish -c "capture shot"
-bindsym $mod+Alt+p      exec fish -c "capture record"
-bindsym --release $mod+Shift+p     exec fish -c "capture shot --selection"
-bindsym --release $mod+Alt+Shift+p exec fish -c "capture record --selection"
+# bindsym $mod+F7          exec fish -c "auto_backlight"
+bindsym $mod+F7          exec fish -c "screenshot"
+bindsym $mod+F8          exec fish -c "screenrecord"
+bindsym --release $mod+Shift+F7    exec fish -c "screenshot --selection"
+bindsym --release $mod+Shift+F8    exec fish -c "screenrecord --selection"
+bindsym $mod+F10         exec fish -c "vol mute && statusline --update"
+bindsym $mod+F11         exec fish -c "vol down"
+bindsym $mod+F12         exec fish -c "vol up"
 
 # Move focus
 bindsym $mod+$left  focus left
@@ -60,17 +60,16 @@ set $ws7 " 7 "
 set $ws8 " 8 "
 set $ws9 " 9 "
 # Switch workspace
-bindsym $mod+1  workspace $ws1
-bindsym $mod+2  workspace $ws2
-bindsym $mod+3  workspace $ws3
-bindsym $mod+4  workspace $ws4
-bindsym $mod+5  workspace $ws5
-bindsym $mod+6  workspace $ws6
-bindsym $mod+7  workspace $ws7
-bindsym $mod+8  workspace $ws8
-bindsym $mod+9  workspace $ws9
-# bindsym $mod+Tab       workspace next_on_output
-# bindsym $mod+Shift+Tab workspace prev_on_output
+bindsym $mod+1    workspace $ws1
+bindsym $mod+2    workspace $ws2
+bindsym $mod+3    workspace $ws3
+bindsym $mod+4    workspace $ws4
+bindsym $mod+5    workspace $ws5
+bindsym $mod+6    workspace $ws6
+bindsym $mod+7    workspace $ws7
+bindsym $mod+8    workspace $ws8
+bindsym $mod+9    workspace $ws9
+bindsym $mod+Tab  workspace back_and_forth
 bindsym $mod+Shift+1  move container to workspace $ws1 ; workspace $ws1
 bindsym $mod+Shift+2  move container to workspace $ws2 ; workspace $ws2
 bindsym $mod+Shift+3  move container to workspace $ws3 ; workspace $ws3
@@ -103,15 +102,17 @@ bindsym $mod+a focus parent
 #
 ### App launcher
 #
-set $mozc  ~/.nix-profile/lib/mozc/mozc_tool --mode=config_dialog
+set $mozc  "/run/current-system/sw/lib/mozc/mozc_tool --mode=config_dialog"
+set $studio  "_JAVA_AWT_WM_NONREPARENTING=1 android-studio-dev"
 bindsym $mod+o mode "Launcher" ; exec fish -c launcher_guide
 mode "Launcher" {
+    bindsym a      exec $studio                   ; mode "default" ; exec dunstctl close
     bindsym c      exec code                      ; mode "default" ; exec dunstctl close
     bindsym f      exec firefox                   ; mode "default" ; exec dunstctl close
     bindsym m      exec $mozc                     ; mode "default" ; exec dunstctl close
     bindsym p      exec pavucontrol               ; mode "default" ; exec dunstctl close
     bindsym t      exec thunar                    ; mode "default" ; exec dunstctl close
-    bindsym b      exec "fish -c toggle_btdongle" ; mode "default" ; exec dunstctl close
+    bindsym b      exec "fish -c toggle_btdevice" ; mode "default" ; exec dunstctl close
     bindsym k      exec "fish -c set_keybind"     ; mode "default" ; exec dunstctl close
     bindsym $mod+o exec "fish -c launcher_guide"  ; exec dunstctl  close
     bindsym Escape mode "default"                 ; exec dunstctl  close
@@ -162,7 +163,7 @@ bar {
     # i3bar_command /usr/bin/i3bar
     status_command fish -c statusline
     position bottom
-    font pango:monospace bold 14
+    font pango:monospace bold 13
     colors {
         statusline $white
         background $gray0
@@ -195,7 +196,7 @@ input type:touchpad {
 for_window [class="feh" instance="feh"] floating enable
 for_window [class="Thunar" instance="thunar"] floating enable
 for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
-font pango:monospace bold 14
+font pango:monospace bold 13
 default_border pixel 2
 default_floating_border pixel 2
 hide_edge_borders smart
