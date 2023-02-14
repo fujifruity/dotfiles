@@ -2,6 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+## Setup:
+# sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+# sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+# sudo nix-channel --update
+# nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+# nix-channel --update
+
 { config, pkgs, ... }:
 
 let
@@ -12,6 +19,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.timeout = 1;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixpad"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -30,8 +38,8 @@ in
   # i18n.defaultLocale = "en_US.UTF-8";
   console = {
     # earlySetup = true;
-    packages = with pkgs; [ tamsyn ];
-    font = "${pkgs.tamsyn}/share/consolefonts/Tamsyn10x20r.psf.gz";  # Large TTY font
+    # packages = with pkgs; [ tamsyn ];
+    # font = "${pkgs.tamsyn}/share/consolefonts/Tamsyn10x20r.psf.gz";  # Large TTY font
     # keyMap = "us";
     # useXkbConfig = true; # use xkbOptions in tty.
   };
@@ -125,7 +133,7 @@ in
       vim_configurable # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       fzf # vim
       kmonad
-      home-manager
+      # home-manager
     ];
     pathsToLink = [ "/libexec" ]; # (for i3) links /libexec from derivations to /run/current-system/sw
   };
